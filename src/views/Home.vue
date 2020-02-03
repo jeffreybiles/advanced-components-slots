@@ -10,7 +10,7 @@
     </VSRating>
 
     <!-- This button is to show that the the Let auto-updates -->
-    <button @click="rating = rating + 1">Add 1</button>
+    <VSButton @click="rating = rating + 1">Add 1</VSButton>
     <!-- <VSRating :rating="73" :fromHundred="true" :maxIcons="9">
       <template #default><font-awesome-icon icon="circle" /></template>
       <template #half-filled><font-awesome-icon icon="adjust" /></template>
