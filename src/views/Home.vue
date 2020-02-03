@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <VSRating :rating="2.6" />
-    <VSRating :rating="rating">
+    <VSRating :rating="rating" :changeRating="(newRating) => rating = newRating">
       <template #default="{isFilled, isHalf}">
         <font-awesome-icon icon="circle" v-if="isFilled" />
         <font-awesome-icon icon="adjust" v-else-if="isHalf" />

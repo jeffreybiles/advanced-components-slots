@@ -3,11 +3,13 @@
     <span v-for="(item, index) in new Array(maxIcons)" :key="index">
       <Let :func="{isFilled: index <= calculatedRating - 1, 
                    isHalf: calculatedRating - index == 0.5}" v-slot="{val: {isFilled, isHalf}}">
-        <slot :isFilled="isFilled" :isHalf="isHalf">
-          <font-awesome-icon icon="star" v-if="isFilled" />
-          <font-awesome-icon icon="star-half-alt" v-else-if="isHalf" />
-          <font-awesome-icon :icon="['far', 'star']" v-else />
-        </slot>
+        <span @click="changeRating(index + 1)">
+          <slot :isFilled="isFilled" :isHalf="isHalf">
+            <font-awesome-icon icon="star" v-if="isFilled" />
+            <font-awesome-icon icon="star-half-alt" v-else-if="isHalf" />
+            <font-awesome-icon :icon="['far', 'star']" v-else />
+          </slot>
+        </span>
       </Let>
 
       <!-- <span v-if="index <= calculatedRating - 1">
@@ -50,6 +52,10 @@
       maxIcons: {
         type: Number,
         default: 5
+      },
+      changeRating: {
+        type: Function,
+        default: () => {}
       }
     }
   }
