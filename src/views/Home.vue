@@ -2,7 +2,8 @@
   <div class="home">
     <VSRating :rating="3" />
     <VSRating :rating="3">
-      <font-awesome-icon icon="circle" />
+      <template #default><font-awesome-icon icon="circle" /></template>
+      <template #unfilled><font-awesome-icon :icon="['far', 'circle']" /></template>
     </VSRating>
     <hr>
     <VSButton />

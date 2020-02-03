@@ -5,7 +5,7 @@
         <slot><font-awesome-icon icon="star" /></slot>
       </span>
       <span v-else>
-        <font-awesome-icon :icon="['far', 'star']" />
+        <slot name="unfilled"><font-awesome-icon :icon="['far', 'star']" /></slot>
       </span>
     </span>
   </div>
