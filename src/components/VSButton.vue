@@ -1,12 +1,17 @@
 <template>
   <button class="btn">
-    <slot>Default Text</slot>
+    <slot>{{message}}</slot>
   </button>
 </template>
 
 <script>
   export default {
-    
+    props: {
+      message: {
+        type: String,
+        default: "Default Text"
+      }
+    }
   }
 </script>
 

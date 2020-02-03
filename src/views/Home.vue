@@ -11,6 +11,10 @@
     <VSButton>
       <template #default></template>
     </VSButton>
+    <VSButton message="Through props" />
+    <VSButton message="Which will win?">
+      Slots wins in this case
+    </VSButton>
   </div>
 </template>
 
