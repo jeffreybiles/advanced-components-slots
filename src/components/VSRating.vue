@@ -1,14 +1,13 @@
 <template>
   <div>
     <span v-for="(item, index) in new Array(maxIcons)" :key="index">
-      <Let :func="index <= calculatedRating - 1" v-slot="{val: isFilled}">
-        <Let :func="calculatedRating - index == 0.5" v-slot="{val: isHalf}">
-          <slot :isFilled="isFilled" :isHalf="isHalf">
-            <font-awesome-icon icon="star" v-if="isFilled" />
-            <font-awesome-icon icon="star-half-alt" v-else-if="isHalf" />
-            <font-awesome-icon :icon="['far', 'star']" v-else />
-          </slot>
-        </Let>
+      <Let :func="{isFilled: index <= calculatedRating - 1, 
+                   isHalf: calculatedRating - index == 0.5}" v-slot="{val: {isFilled, isHalf}}">
+        <slot :isFilled="isFilled" :isHalf="isHalf">
+          <font-awesome-icon icon="star" v-if="isFilled" />
+          <font-awesome-icon icon="star-half-alt" v-else-if="isHalf" />
+          <font-awesome-icon :icon="['far', 'star']" v-else />
+        </slot>
       </Let>
 
       <!-- <span v-if="index <= calculatedRating - 1">
