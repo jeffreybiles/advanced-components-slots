@@ -1,6 +1,9 @@
 <template>
   <div class="home">
     <VSRating :rating="3" />
+    <VSRating :rating="3">
+      <font-awesome-icon icon="circle" />
+    </VSRating>
     <hr>
     <VSButton />
     <VSButton>Custom Text</VSButton>
