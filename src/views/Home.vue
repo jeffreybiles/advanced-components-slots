@@ -8,7 +8,7 @@
         <font-awesome-icon :icon="['far', 'circle']" v-else />
       </template>
     </VSRating> -->
-    <VSRating :rating="73" :fromHundred="true">
+    <VSRating :rating="73" :fromHundred="true" :maxIcons="9">
       <template #default><font-awesome-icon icon="circle" /></template>
       <template #half-filled><font-awesome-icon icon="adjust" /></template>
       <template #unfilled><font-awesome-icon :icon="['far', 'circle']" /></template>
