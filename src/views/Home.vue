@@ -15,16 +15,24 @@
     <VSButton message="Which will win?">
       Slots wins in this case
     </VSButton>
+    <VSToggle>
+      Toggle-able Button!
+    </VSToggle>
+    <VSToggle :initialState="false">
+      Starting off normal
+    </VSToggle>
   </div>
 </template>
 
 <script>
 import VSButton from '@/components/VSButton';
+import VSToggle from '@/components/VSToggle';
 
 export default {
   name: 'home',
   components: {
-    VSButton
+    VSButton,
+    VSToggle
   }
 }
 </script>
