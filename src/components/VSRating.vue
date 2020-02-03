@@ -2,7 +2,10 @@
   <div>
     <span v-for="(item, index) in new Array(5)" :key="index">
       <span v-if="index <= rating - 1">
-        Star
+        <font-awesome-icon icon="star" />
+      </span>
+      <span v-else>
+        <font-awesome-icon :icon="['far', 'star']" />
       </span>
     </span>
   </div>
