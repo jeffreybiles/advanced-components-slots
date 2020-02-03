@@ -1,18 +1,21 @@
 <template>
   <div class="home">
     <VSRating :rating="2.6" />
-    <!-- <VSRating :rating="2.5">
+    <VSRating :rating="rating">
       <template #default="{isFilled, isHalf}">
         <font-awesome-icon icon="circle" v-if="isFilled" />
         <font-awesome-icon icon="adjust" v-else-if="isHalf" />
         <font-awesome-icon :icon="['far', 'circle']" v-else />
       </template>
-    </VSRating> -->
-    <VSRating :rating="73" :fromHundred="true" :maxIcons="9">
+    </VSRating>
+
+    <!-- This button is to show that the the Let auto-updates -->
+    <button @click="rating = rating + 1">Add 1</button>
+    <!-- <VSRating :rating="73" :fromHundred="true" :maxIcons="9">
       <template #default><font-awesome-icon icon="circle" /></template>
       <template #half-filled><font-awesome-icon icon="adjust" /></template>
       <template #unfilled><font-awesome-icon :icon="['far', 'circle']" /></template>
-    </VSRating>
+    </VSRating> -->
     <hr>
     <VSButton />
     <VSButton>Custom Text</VSButton>
@@ -49,6 +52,11 @@ export default {
     VSButton,
     VSToggle,
     VSRating
+  },
+  data(){
+    return {
+      rating: 3.5
+    }
   }
 }
 </script>

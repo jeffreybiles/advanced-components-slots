@@ -1,12 +1,17 @@
 <template>
   <div>
     <span v-for="(item, index) in new Array(maxIcons)" :key="index">
-      <!-- <slot :isFilled="index <= calculatedRating - 1" :isHalf="calculatedRating - index == 0.5">
-        <font-awesome-icon icon="star" v-if="index <= calculatedRating - 1" />
-        <font-awesome-icon icon="star-half-alt" v-else-if="calculatedRating - index == 0.5" />
-        <font-awesome-icon :icon="['far', 'star']" v-else />
-      </slot> -->
-      <span v-if="index <= calculatedRating - 1">
+      <Let :func="index <= calculatedRating - 1" v-slot="{val: isFilled}">
+        <Let :func="calculatedRating - index == 0.5" v-slot="{val: isHalf}">
+          <slot :isFilled="isFilled" :isHalf="isHalf">
+            <font-awesome-icon icon="star" v-if="isFilled" />
+            <font-awesome-icon icon="star-half-alt" v-else-if="isHalf" />
+            <font-awesome-icon :icon="['far', 'star']" v-else />
+          </slot>
+        </Let>
+      </Let>
+
+      <!-- <span v-if="index <= calculatedRating - 1">
         <slot><font-awesome-icon icon="star" /></slot>
       </span>
       <span v-else-if="calculatedRating - index == 0.5">
@@ -14,13 +19,17 @@
       </span>
       <span v-else>
         <slot name="unfilled"><font-awesome-icon :icon="['far', 'star']" /></slot>
-      </span>
+      </span> -->
     </span>
   </div>
 </template>
 
 <script>
+  import Let from '@/components/Let';
   export default {
+    components: {
+      Let
+    },
     computed: {
       calculatedRating(){
         let rating = this.rating;
