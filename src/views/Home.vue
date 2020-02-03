@@ -1,8 +1,9 @@
 <template>
   <div class="home">
-    <VSRating :rating="3" />
-    <VSRating :rating="3">
+    <VSRating :rating="4.5" />
+    <VSRating :rating="0.5">
       <template #default><font-awesome-icon icon="circle" /></template>
+      <template #half-filled><font-awesome-icon icon="adjust" /></template>
       <template #unfilled><font-awesome-icon :icon="['far', 'circle']" /></template>
     </VSRating>
     <hr>

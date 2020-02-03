@@ -4,6 +4,9 @@
       <span v-if="index <= rating - 1">
         <slot><font-awesome-icon icon="star" /></slot>
       </span>
+      <span v-else-if="rating - index == 0.5">
+        <slot name="half-filled"><font-awesome-icon icon="star-half-alt" /></slot>
+      </span>
       <span v-else>
         <slot name="unfilled"><font-awesome-icon :icon="['far', 'star']" /></slot>
       </span>
