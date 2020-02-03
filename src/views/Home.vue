@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <VSRating :rating="3" />
+    <hr>
     <VSButton />
     <VSButton>Custom Text</VSButton>
     <VSButton>
@@ -27,12 +29,14 @@
 <script>
 import VSButton from '@/components/VSButton';
 import VSToggle from '@/components/VSToggle';
+import VSRating from '@/components/VSRating';
 
 export default {
   name: 'home',
   components: {
     VSButton,
-    VSToggle
+    VSToggle,
+    VSRating
   }
 }
 </script>
