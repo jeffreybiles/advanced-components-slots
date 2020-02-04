@@ -1,8 +1,10 @@
 <template>
   <div>
     <h1>Slots II</h1>
-
-    <GHTable />
+    Enter an organization's name, then hit enter to load their projects.<br>
+    <input v-model="newUsername" @keydown.enter="username = newUsername" />
+    
+    <GHTable :username="username" />
   </div>
 </template>
 
@@ -12,6 +14,11 @@
   export default {
     components: {
       GHTable
+    },
+    data(){
+      return {
+        username: ''
+      }
     }
   }
 </script>

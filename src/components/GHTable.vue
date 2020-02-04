@@ -54,8 +54,9 @@
           try {
             let response = await this.axios.get(`https://api.github.com/orgs/${username}/repos`);
             this.projects = response.data;
+            this.error = ''
           } catch(error) {
-            this.error = "Either GitHub is down or, more likely, the organization does not exist."
+            this.error = "Please enter a valid username."
           }
           this.loading = false;
         }        
