@@ -13,6 +13,14 @@
           GOODBYE
         </VSButton>
       </template>
+      <template #header.stargazers>
+        <font-awesome-icon icon="star" />
+        <font-awesome-icon icon="star" />
+        <font-awesome-icon icon="star" />
+      </template>
+      <template #header.issues>
+        Here be <font-awesome-icon icon="dragon" />
+      </template>
     </GHTable>
   </div>
 </template>

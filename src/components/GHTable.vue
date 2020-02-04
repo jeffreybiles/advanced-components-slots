@@ -9,11 +9,13 @@
           <th v-for="header in headers"
               :key="header.name"
               @click="sort(header.sortBy)">
-            {{header.name}}
-            <span v-if="header.sortBy == sortBy">
-              <font-awesome-icon icon="arrow-down" v-if="sortDescending" />
-              <font-awesome-icon icon="arrow-up" v-else />
-            </span>
+            <slot :name="`header.${header.id}`">
+              {{header.name}}
+              <span v-if="header.sortBy == sortBy">
+                <font-awesome-icon icon="arrow-down" v-if="sortDescending" />
+                <font-awesome-icon icon="arrow-up" v-else />
+              </span>
+            </slot>
           </th>
         </tr>
       </thead>
@@ -67,11 +69,11 @@
         sortBy: 'stargazers_count',
         sortDescending: true,
         headers: [
-          {name: 'Name', sortBy: 'name'},
-          {name: 'Stargazers', sortBy: 'stargazers_count'},
-          {name: 'Language', sortBy: 'language'},
-          {name: 'Open Issues', sortBy: 'open_issues'},
-          {name: 'Actions', sortBy: ''}
+          {id: 'name', name: 'Name', sortBy: 'name'},
+          {id: 'stargazers', name: 'Stargazers', sortBy: 'stargazers_count'},
+          {id: 'language', name: 'Language', sortBy: 'language'},
+          {id: 'issues', name: 'Open Issues', sortBy: 'open_issues'},
+          {id: 'actions', name: 'Actions', sortBy: ''}
         ]
       }
     },
