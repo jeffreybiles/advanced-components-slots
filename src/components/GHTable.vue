@@ -10,6 +10,10 @@
               :key="header.name"
               @click="sort(header.sortBy)">
             {{header.name}}
+            <span v-if="header.sortBy == sortBy">
+              <font-awesome-icon icon="arrow-down" v-if="sortDescending" />
+              <font-awesome-icon icon="arrow-up" v-else />
+            </span>
           </th>
         </tr>
       </thead>
