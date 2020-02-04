@@ -13,6 +13,15 @@
           <th>Actions</th>
         </tr>
       </thead>
+      <tfoot>
+        <tr>
+          <td><strong>Totals</strong></td>
+          <td>{{totalStargazers}}</td>
+          <td></td>
+          <td>{{totalOpenIssues}}</td>
+          <td></td>
+        </tr>
+      </tfoot>
       <tbody>
         <tr v-for="project in projects" :key="project.id">
           <td>{{project.name}}</td>
@@ -29,6 +38,7 @@
 </template>
 
 <script>
+  import _ from 'lodash';
   export default {
     data(){
       return {
@@ -62,6 +72,14 @@
         }        
       }
     },
+    computed: {
+      totalStargazers(){
+        return _.sum(this.projects.map(p => p.stargazers_count))
+      },
+      totalOpenIssues(){
+        return _.sum(this.projects.map(p => p.open_issues))
+      }
+    },
     props: {
       username: {
         type: String,
@@ -86,6 +104,11 @@
       }
       &:nth-child(2n) {
         background-color: #DDD;
+      }
+    }
+    tfoot {
+      td {
+        border-top: 1px solid black;
       }
     }
   }
