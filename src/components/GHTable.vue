@@ -23,7 +23,10 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr v-for="project in projects" :key="project.id">
+        <tr v-for="project in projects" 
+            :key="project.id"
+            @click="highlight(project)"
+            :class="`${project.highlighted ? 'highlighted' : 'normal'}`">
           <td>{{project.name}}</td>
           <td>{{project.stargazers_count}}</td>
           <td>{{project.language}}</td>
@@ -39,6 +42,8 @@
 
 <script>
   import _ from 'lodash';
+  import Vue from 'vue';
+
   export default {
     data(){
       return {
@@ -70,6 +75,11 @@
           }
           this.loading = false;
         }        
+      },
+      highlight(project) {
+        project.highlighted = !project.highlighted
+        let index = this.projects.findIndex(p => p.id === project.id)
+        Vue.set(this.projects, index, project)
       }
     },
     computed: {
@@ -95,6 +105,9 @@
     border-collapse: collapse;
 
     tr {
+      &.highlighted {
+        background-color: #8FEE90;
+      }
       td, th {
         padding: 0.5rem;
         text-align: left;
@@ -104,6 +117,10 @@
       }
       &:nth-child(2n) {
         background-color: #DDD;
+
+        &.highlighted {
+          background-color: #7FDE80
+        }
       }
     }
     tfoot {
