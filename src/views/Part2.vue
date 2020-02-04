@@ -5,15 +5,13 @@
     <input v-model="newUsername" @keydown.enter="username = newUsername" />
     
     <GHTable :username="username">
-      <template #row="{project, remove, highlight}">
-        <td>{{project.name}}!!!!</td>
-        <td>{{project.stargazers_count}} <font-awesome-icon icon="star" /></td>
-        <td>{{project.language}}</td>
-        <td>{{project.open_issues}}</td>
-        <td>
-          <button @click="remove(project)">Bye</button>
-          <button @click="highlight(project)">Fancy</button>
-        </td>
+      <template #column.stargazers="{project}">
+        {{project.stargazers_count}} <font-awesome-icon icon="star" />
+      </template>
+      <template #column.actions="{project, remove, highlight}">
+        <VSButton @click="remove(project)">
+          GOODBYE
+        </VSButton>
       </template>
     </GHTable>
   </div>
@@ -21,10 +19,12 @@
 
 <script>
   import GHTable from '@/components/GHTable.vue';
+  import VSButton from '@/components/VSButton.vue';
 
   export default {
     components: {
-      GHTable
+      GHTable,
+      VSButton
     },
     data(){
       return {

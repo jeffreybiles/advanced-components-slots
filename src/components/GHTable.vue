@@ -27,14 +27,22 @@
             :key="project.id"
             :class="`${project.highlighted ? 'highlighted' : 'normal'}`">
           <slot name="row" :project="project" :remove="remove" :highlight="highlight" >
-            <td>{{project.name}}</td>
-            <td>{{project.stargazers_count}}</td>
-            <td>{{project.language}}</td>
-            <td>{{project.open_issues}}</td>
-            <td>
+            <td><slot name="column.name" :project="project">
+              {{project.name}}
+            </slot></td>
+            <td><slot name="column.stargazers" :project="project">
+              {{project.stargazers_count}}
+            </slot></td>
+            <td><slot name="column.language" :project="project">
+              {{project.language}}
+            </slot></td>
+            <td><slot name="column.issues" :project="project">
+              {{project.open_issues}}
+            </slot></td>
+            <td><slot name="column.actions" :project="project" :highlight="highlight" :remove="remove">
               <button @click="highlight(project)">Highlight</button>
               <button @click="remove(project)">Remove</button>
-            </td>
+            </slot></td>
           </slot>
         </tr>
       </tbody>
