@@ -1,14 +1,8 @@
 <template>
   <div>
-    <div v-if="!username">
-      Please enter a username
-    </div>
-    <div v-else-if="error">
-      {{this.error}}
-    </div>
-    <div v-else-if="loading">
-      Please wait while we load {{username}}'s projects
-    </div>
+    <p v-if="!username">Please enter a username</p>
+    <p v-else-if="error">{{this.error}}</p>
+    <p v-else-if="loading">Please wait while we load {{username}}'s projects</p>
     <table v-else>
       <thead>
         <th>Name</th>
