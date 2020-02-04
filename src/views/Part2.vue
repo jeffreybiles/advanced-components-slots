@@ -17,7 +17,8 @@
     },
     data(){
       return {
-        username: ''
+        username: 'vuejs',
+        newUsername: 'vuejs'
       }
     }
   }
