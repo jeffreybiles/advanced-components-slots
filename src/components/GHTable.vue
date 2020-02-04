@@ -6,11 +6,11 @@
     <table v-else>
       <thead>
         <tr>
-          <th @click="sort('name')">Name</th>
-          <th @click="sort('stargazers_count')">Stargazers</th>
-          <th @click="sort('language')">Language</th>
-          <th @click="sort('open_issues')">Open Issues</th>
-          <th>Actions</th>
+          <th v-for="header in headers"
+              :key="header.name"
+              @click="sort(header.sortBy)">
+            {{header.name}}
+          </th>
         </tr>
       </thead>
       <tfoot>
@@ -61,7 +61,14 @@
         error: '',
         loading: false,
         sortBy: 'stargazers_count',
-        sortDescending: true
+        sortDescending: true,
+        headers: [
+          {name: 'Name', sortBy: 'name'},
+          {name: 'Stargazers', sortBy: 'stargazers_count'},
+          {name: 'Language', sortBy: 'language'},
+          {name: 'Open Issues', sortBy: 'open_issues'},
+          {name: 'Actions', sortBy: ''}
+        ]
       }
     },
     watch: {
