@@ -6,10 +6,10 @@
     <table v-else>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Stargazers</th>
-          <th>Language</th>
-          <th>Open Issues</th>
+          <th @click="sort('name')">Name</th>
+          <th @click="sort('stargazers_count')">Stargazers</th>
+          <th @click="sort('language')">Language</th>
+          <th @click="sort('open_issues')">Open Issues</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -23,7 +23,7 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr v-for="project in projects" 
+        <tr v-for="project in sortedProjects" 
             :key="project.id"
             :class="`${project.highlighted ? 'highlighted' : 'normal'}`">
           <slot name="row" :project="project" :remove="remove" :highlight="highlight" >
@@ -59,7 +59,9 @@
       return {
         projects: [],
         error: '',
-        loading: false
+        loading: false,
+        sortBy: 'stargazers_count',
+        sortDescending: true
       }
     },
     watch: {
@@ -94,6 +96,12 @@
       remove(project) {
         let index = this.projects.findIndex(p => p.id === project.id)
         this.projects.splice(index, 1)
+      },
+      sort(newSort) {
+        if(this.sortBy == newSort) {
+          this.sortDescending = !this.sortDescending;
+        }
+        this.sortBy = newSort;
       }
     },
     computed: {
@@ -102,6 +110,17 @@
       },
       totalOpenIssues(){
         return _.sum(this.projects.map(p => p.open_issues))
+      },
+      sortedProjects(){
+        let sortBy = this.sortBy;
+        return this.projects.sort((p1, p2) => {
+          let p1Greater = p1[sortBy] > p2[sortBy];
+          if(p1Greater ? this.sortDescending : !this.sortDescending) {
+            return -1
+          } else {
+            return 1
+          }
+        })
       }
     },
     props: {
