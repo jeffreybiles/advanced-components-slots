@@ -5,10 +5,13 @@
     <p v-else-if="loading">Please wait while we load {{username}}'s projects</p>
     <table v-else>
       <thead>
-        <th>Name</th>
-        <th>Stargazers</th>
-        <th>Language</th>
-        <th>Open Issues</th>
+        <tr>
+          <th>Name</th>
+          <th>Stargazers</th>
+          <th>Language</th>
+          <th>Open Issues</th>
+          <th>Actions</th>
+        </tr>
       </thead>
       <tbody>
         <tr v-for="project in projects" :key="project.id">
@@ -16,6 +19,9 @@
           <td>{{project.stargazers_count}}</td>
           <td>{{project.language}}</td>
           <td>{{project.open_issues}}</td>
+          <td>
+
+          </td>
         </tr>
       </tbody>
     </table>
@@ -66,5 +72,21 @@
 </script>
 
 <style lang="scss" scoped>
+  table {
+    margin: auto;
+    border-collapse: collapse;
 
+    tr {
+      td, th {
+        padding: 0.5rem;
+        text-align: left;
+      }
+      th {
+        border-bottom: 1px solid #999;
+      }
+      &:nth-child(2n) {
+        background-color: #DDD;
+      }
+    }
+  }
 </style>
