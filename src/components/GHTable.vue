@@ -32,7 +32,7 @@
           <td>{{project.language}}</td>
           <td>{{project.open_issues}}</td>
           <td>
-
+            <button @click="remove(project)">Remove</button>
           </td>
         </tr>
       </tbody>
@@ -80,6 +80,10 @@
         project.highlighted = !project.highlighted
         let index = this.projects.findIndex(p => p.id === project.id)
         Vue.set(this.projects, index, project)
+      },
+      remove(project) {
+        let index = this.projects.findIndex(p => p.id === project.id)
+        this.projects.splice(index, 1)
       }
     },
     computed: {
