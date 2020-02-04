@@ -11,11 +11,11 @@
               @click="sort(header.sortBy)">
             <slot :name="`header.${header.id}`">
               {{header.name}}
-              <span v-if="header.sortBy == sortBy">
-                <font-awesome-icon icon="arrow-down" v-if="sortDescending" />
-                <font-awesome-icon icon="arrow-up" v-else />
-              </span>
             </slot>
+            <span v-if="header.sortBy == sortBy">
+              <font-awesome-icon icon="arrow-down" v-if="sortDescending" />
+              <font-awesome-icon icon="arrow-up" v-else />
+            </span>
           </th>
         </tr>
       </thead>
