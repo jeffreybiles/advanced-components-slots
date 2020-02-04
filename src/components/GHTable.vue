@@ -1,6 +1,15 @@
 <template>
   <div>
-    <table>
+    <div v-if="!username">
+      Please enter a username
+    </div>
+    <div v-else-if="error">
+      {{this.error}}
+    </div>
+    <div v-else-if="loading">
+      Please wait while we load {{username}}'s projects
+    </div>
+    <table v-else>
       <thead>
         <th>Name</th>
         <th>Stargazers</th>
@@ -23,7 +32,9 @@
   export default {
     data(){
       return {
-        projects: []
+        projects: [],
+        error: '',
+        loading: false
       }
     },
     watch: {
@@ -39,8 +50,14 @@
         if(!username) {
           this.projects = []
         } else {
-          let response = await this.axios.get(`https://api.github.com/orgs/${username}/repos`);
-          this.projects = response.data;
+          this.loading = true;
+          try {
+            let response = await this.axios.get(`https://api.github.com/orgs/${username}/repos`);
+            this.projects = response.data;
+          } catch(error) {
+            this.error = "Either GitHub is down or, more likely, the organization does not exist."
+          }
+          this.loading = false;
         }        
       }
     },
