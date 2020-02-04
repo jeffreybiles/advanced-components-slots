@@ -4,7 +4,18 @@
     Enter an organization's name, then hit enter to load their projects.<br>
     <input v-model="newUsername" @keydown.enter="username = newUsername" />
     
-    <GHTable :username="username" />
+    <GHTable :username="username">
+      <template #row="{project, remove, highlight}">
+        <td>{{project.name}}!!!!</td>
+        <td>{{project.stargazers_count}} <font-awesome-icon icon="star" /></td>
+        <td>{{project.language}}</td>
+        <td>{{project.open_issues}}</td>
+        <td>
+          <button @click="remove(project)">Bye</button>
+          <button @click="highlight(project)">Fancy</button>
+        </td>
+      </template>
+    </GHTable>
   </div>
 </template>
 

@@ -25,15 +25,17 @@
       <tbody>
         <tr v-for="project in projects" 
             :key="project.id"
-            @click="highlight(project)"
             :class="`${project.highlighted ? 'highlighted' : 'normal'}`">
-          <td>{{project.name}}</td>
-          <td>{{project.stargazers_count}}</td>
-          <td>{{project.language}}</td>
-          <td>{{project.open_issues}}</td>
-          <td>
-            <button @click="remove(project)">Remove</button>
-          </td>
+          <slot name="row" :project="project" :remove="remove" :highlight="highlight" >
+            <td>{{project.name}}</td>
+            <td>{{project.stargazers_count}}</td>
+            <td>{{project.language}}</td>
+            <td>{{project.open_issues}}</td>
+            <td>
+              <button @click="highlight(project)">Highlight</button>
+              <button @click="remove(project)">Remove</button>
+            </td>
+          </slot>
         </tr>
       </tbody>
     </table>
