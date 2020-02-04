@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tfoot>
-      <slot #footer></slot>
+      <slot name="footer"></slot>
     </tfoot>
     <tbody>
       <tr v-for="item in sortedItems" 

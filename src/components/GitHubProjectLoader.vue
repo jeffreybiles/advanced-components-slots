@@ -3,23 +3,14 @@
     <p v-if="!username">Please enter a username</p>
     <p v-else-if="error">{{this.error}}</p>
     <p v-else-if="loading">Please wait while we load {{username}}'s projects</p>
-    <VSTable v-else :headers="headers" :items="projects">
-      <template #footer>
-        <tr>
-          <td><strong>Totals</strong></td>
-          <td>{{totalStargazers}}</td>
-          <td></td>
-          <td>{{totalOpenIssues}}</td>
-          <td></td>
-        </tr>
-      </template>
-    </VSTable>
+    <span v-else>
+      <slot :projects="projects" :totalStargazers="totalStargazers" :totalOpenIssues="totalOpenIssues" />
+    </span>
   </div>
 </template>
 
 <script>
   import _ from 'lodash';
-  import VSTable from '@/components/VSTable.vue';
 
   export default {
     data(){
@@ -27,19 +18,7 @@
         projects: [],
         error: '',
         loading: false,
-        sortBy: 'stargazers_count',
-        sortDescending: true,
-        headers: [
-          {id: 'name', name: 'Name', sortBy: 'name'},
-          {id: 'stargazers', name: 'Stargazers', sortBy: 'stargazers_count'},
-          {id: 'language', name: 'Language', sortBy: 'language'},
-          {id: 'issues', name: 'Open Issues', sortBy: 'open_issues'},
-          {id: 'actions', name: 'Actions', sortBy: ''}
-        ]
       }
-    },
-    components: {
-      VSTable
     },
     watch: {
       'username': function(newUsername) {
@@ -68,10 +47,10 @@
     },
     computed: {
       totalStargazers(){
-        return _.sum(this.projects.map(p => p.stargazers_count))
+        return _.sum(this.projects.map(p => p && p.stargazers_count))
       },
       totalOpenIssues(){
-        return _.sum(this.projects.map(p => p.open_issues))
+        return _.sum(this.projects.map(p => p && p.open_issues))
       }
     },
     props: {
