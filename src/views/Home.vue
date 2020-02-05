@@ -1,8 +1,12 @@
 <template>
   <div class="home">
-    <VSRating :rating="3">
+    <VSRating :rating="4.5" />
+    <VSRating :rating="3.5">
       <template #filled>
         <font-awesome-icon icon="circle" />
+      </template>
+      <template #half-filled>
+        <font-awesome-icon icon="adjust" />
       </template>
       <template #unfilled>
         <font-awesome-icon :icon="['far', 'circle']" />
