@@ -2,10 +2,14 @@
   <div>
     <span v-for="(item, index) in new Array(5)" :key="index">
       <span v-if="index <= rating - 1">
-        <font-awesome-icon icon="star" />
+        <slot name="filled">
+          <font-awesome-icon icon="star" />
+        </slot>
       </span>
       <span v-else>
-        <font-awesome-icon :icon="['far', 'star']" />
+        <slot name="unfilled">
+          <font-awesome-icon :icon="['far', 'star']" />
+        </slot>
       </span>
     </span>
   </div>
