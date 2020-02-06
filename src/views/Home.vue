@@ -1,9 +1,10 @@
 <template>
   <div class="home">
-    <VSRatingProps :rating="4" />
+    <VSRatingProps :rating="3.5" />
 
-    <VSRatingProps :rating="4" v-slot="{isFilled}">
+    <VSRatingProps :rating="3.5" v-slot="{isFilled, halfFilled}">
       <font-awesome-icon icon="circle" v-if="isFilled" />
+      <font-awesome-icon icon="adjust" v-else-if="halfFilled" />
       <font-awesome-icon :icon="['far', 'circle']" v-else />
     </VSRatingProps>
 
