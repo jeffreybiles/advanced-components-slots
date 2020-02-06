@@ -1,9 +1,8 @@
 <template>
   <div class="home">
-    <VSRating :rating="3.5" />
+    <VSRating :rating="3.7" />
 
-    
-    <VSRating :rating="3.5">
+    <VSRating :rating="3.3">
       <template #filled>
         <font-awesome-icon icon="circle" />
       </template>
