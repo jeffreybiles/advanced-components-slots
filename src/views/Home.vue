@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <VSRating :rating="3.7" />
+    <VSRatingProps :rating="4" />
 
     <VSRating :rating="9.2" :maxRating="10">
       <template #filled>
@@ -18,11 +18,13 @@
 
 <script>
 import VSRating from '@/components/VSRating';
+import VSRatingProps from '@/components/VSRatingProps';
 
 export default {
   name: 'home',
   components: {
-    VSRating
+    VSRating,
+    VSRatingProps
   }
 }
 </script>
