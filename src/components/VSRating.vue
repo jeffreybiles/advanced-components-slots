@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span v-for="(item, index) in new Array(5)" :key="index">
+    <span v-for="(item, index) in new Array(maxRating)" :key="index">
       <span v-if="index <= roundedRating - 1">
         <slot name="filled">
           <font-awesome-icon icon="star" />
@@ -31,6 +31,10 @@
       rating: {
         type: Number,
         required: true
+      },
+      maxRating: {
+        type: Number,
+        default: 5
       }
     }
   }

@@ -2,7 +2,7 @@
   <div class="home">
     <VSRating :rating="3.7" />
 
-    <VSRating :rating="3.3">
+    <VSRating :rating="9.2" :maxRating="10">
       <template #filled>
         <font-awesome-icon icon="circle" />
       </template>
