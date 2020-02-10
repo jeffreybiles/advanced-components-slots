@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Part I</router-link> |
-      <router-link to="/part2">Part II</router-link>
+      <router-link to="/part2">Part II</router-link> | 
+      <router-link to="/part2-1">Part II - extra</router-link>
     </div>
     <router-view/>
   </div>

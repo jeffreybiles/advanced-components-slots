@@ -4,7 +4,7 @@
     Enter an organization's name, then hit enter to load their projects.<br>
     <input v-model="newUsername" @keydown.enter="username = newUsername" />
     
-    <DataLoader :input="username" :endpoint="`https://api.github.com/orgs/${username}/repos`" v-slot="{results}">
+    <DataLoader :endpoint="`https://api.github.com/orgs/${username}/repos`" v-slot="{results}">
       <VSTable :headers="headers" :items="results">
         <template #column.stargazers="{item}">
           {{item.stargazers_count}} <font-awesome-icon icon="star" />

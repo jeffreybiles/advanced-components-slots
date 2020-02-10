@@ -1,7 +1,6 @@
 <template>
   <div>
-    <p v-if="!input"><slot name="no-input">Please enter {{inputName}}</slot></p>
-    <p v-else-if="error"><slot name="error" :error="error">{{error}}</slot></p>
+    <p v-if="error"><slot name="error" :error="error">{{error}}</slot></p>
     <p v-else-if="loading"><slot name="loading">Please wait while we load {{outputName}}</slot></p>
     <span v-else>
       <slot :results="results" />
@@ -21,35 +20,27 @@
       }
     },
     watch: {
-      'input': function(newInput) {
-        this.findData(newInput)
+      'endpoint': function(newEndpoint) {
+        this.findData(newEndpoint)
       }
     },
     created(){
-      this.findData(this.input);
+      this.findData(this.endpoint);
     },
     methods: {
-      async findData(username){
-        if(!username) {
-          this.results = null;
-        } else {
-          this.loading = true;
-          try {
-            let response = await this.axios.get(this.endpoint);
-            this.results = response.data;
-            this.error = ''
-          } catch(error) {
-            this.error = `There was an error: ${error}`
-          }
-          this.loading = false;
-        }        
+      async findData(endpoint){
+        this.loading = true;
+        try {
+          let response = await this.axios.get(endpoint);
+          this.results = response.data;
+          this.error = ''
+        } catch(error) {
+          this.error = `There was an error: ${error}`
+        }
+        this.loading = false;
       }
     },
     props: {
-      input: {
-        type: String,
-        default: 'vuejs'
-      },
       endpoint: {
         type: String,
         required: true
@@ -57,8 +48,7 @@
       outputName: {
         type: String,
         default: "your data"
-      }
-      // 
+      },
     }
   }
 </script>
