@@ -4,8 +4,8 @@
     Enter an organization's name, then hit enter to load their projects.<br>
     <input v-model="newUsername" @keydown.enter="username = newUsername" />
     
-    <GitHubProjectLoader :username="username" v-slot="{projects, totalStargazers, totalOpenIssues}">
-      <VSTable :headers="headers" :items="projects">
+    <DataLoader :input="username" :endpoint="`https://api.github.com/orgs/${username}/repos`" v-slot="{results}">
+      <VSTable :headers="headers" :items="results">
         <template #column.stargazers="{item}">
           {{item.stargazers_count}} <font-awesome-icon icon="star" />
         </template>
@@ -25,25 +25,26 @@
         <template #footer>
           <tr>
             <td><strong>Totals</strong></td>
-            <td>{{totalStargazers}}</td>
+            <td>{{sumBy(results, 'stargazers_count')}}</td>
             <td></td>
-            <td>{{totalOpenIssues}}</td>
+            <td>{{sumBy(results, 'open_issues')}}</td>
             <td></td>
           </tr>
         </template>
       </VSTable>
-    </GitHubProjectLoader>
+    </DataLoader>
   </div>
 </template>
 
 <script>
-  import GitHubProjectLoader from '@/components/GitHubProjectLoader.vue';
   import VSButton from '@/components/VSButton.vue';
   import VSTable from '@/components/VSTable.vue';
+  import DataLoader from '@/components/DataLoader.vue';
+  import _ from 'lodash';
 
   export default {
     components: {
-      GitHubProjectLoader,
+      DataLoader,
       VSButton,
       VSTable
     },
@@ -57,7 +58,13 @@
           {id: 'language', name: 'Language', sortBy: 'language'},
           {id: 'issues', name: 'Open Issues', sortBy: 'open_issues'},
           {id: 'actions', name: 'Actions', sortBy: ''}
-        ]
+        ],
+        
+      }
+    },
+    methods: {
+      sumBy(array, property){
+        return _.sum(array.map(p => p && p[property]))
       }
     }
   }
