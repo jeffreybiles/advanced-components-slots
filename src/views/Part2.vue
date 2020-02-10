@@ -2,7 +2,7 @@
   <div>
     <h1>Slots II</h1>
     Enter an organization's name, then hit enter to load their projects.<br>
-    <input v-model="newUsername" @keydown.enter="username = newUsername" />
+    <input v-model="username" />
     
     <DataLoader :endpoint="`https://api.github.com/orgs/${username}/repos`" v-slot="{results}">
       <VSTable :headers="headers" :items="results">
@@ -51,7 +51,6 @@
     data(){
       return {
         username: 'vuejs',
-        newUsername: 'vuejs',
         headers: [
           {id: 'name', name: 'Name', sortBy: 'name'},
           {id: 'stargazers', name: 'Stargazers', sortBy: 'stargazers_count'},

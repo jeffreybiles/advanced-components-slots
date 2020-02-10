@@ -20,9 +20,9 @@
       }
     },
     watch: {
-      'endpoint': function(newEndpoint) {
+      'endpoint': _.debounce(function(newEndpoint) {
         this.findData(newEndpoint)
-      }
+      }, 500)
     },
     created(){
       this.findData(this.endpoint);
