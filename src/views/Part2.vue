@@ -3,7 +3,8 @@
     <h1>Slots II</h1>
 
     <VSTable v-if="projects.length"
-             :items="projects">
+             :items="projects"
+             :columns="columns">
              
       <template #item.stargazers="{item}">
         {{item.stargazers_count}} <font-awesome-icon icon="star" />
@@ -39,7 +40,15 @@
     data(){
       return {
         username: 'vuejs',
-        projects: []
+        projects: [],
+        columns: [
+          {id: 'name', propertyName: 'name', name: "Name"},
+          {id: 'stargazers', propertyName: 'stargazers_count', name: "Stargazers Count"},
+          {id: 'language', propertyName: 'language', name: "Language"},
+          {id: 'openIssues', propertyName: 'open_issues', name: "Open Issues"},
+          {id: 'forks', propertyName: 'forks', name: '# of forks'},
+          {id: 'actions', name: "Actions"}
+        ]
       }
     },
     created(){

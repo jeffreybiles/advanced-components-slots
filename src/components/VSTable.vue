@@ -46,17 +46,6 @@
   import Vue from 'vue';
 
   export default {
-    data(){
-      return {
-        columns: [
-          {id: 'name', propertyName: 'name', name: "Name"},
-          {id: 'stargazers', propertyName: 'stargazers_count', name: "Stargazers Count"},
-          {id: 'language', propertyName: 'language', name: "Language"},
-          {id: 'openIssues', propertyName: 'open_issues', name: "Open Issues"},
-          {id: 'actions', name: "Actions"}
-        ]
-      }
-    },
     methods: {
       highlight(item) {
         item.highlighted = !item.highlighted;
@@ -73,6 +62,10 @@
         type: Array,
         required: true
       },
+      columns: {
+        type: Array,
+        required: true
+      }
     }
   }
 </script>
