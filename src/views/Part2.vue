@@ -12,26 +12,18 @@
         {{item.open_issues}} issues
       </template>
 
-      <template #head>
-        <th>Name</th>
-        <th>
-          <font-awesome-icon icon="star" />
-          <font-awesome-icon icon="star" />
-          <font-awesome-icon icon="star" />
-        </th>
-        <th>Language</th>
-        <th>Here Be Dragons
-          <font-awesome-icon icon="dragon" />
-        </th>
-        <th>Actions</th>
+      <template #head.stargazers>
+        <font-awesome-icon icon="star" />
+        <font-awesome-icon icon="star" />
+        <font-awesome-icon icon="star" />
       </template>
-      <template #foot="{items}">
-          <td><strong>Totals</strong></td>
-          <td>{{sumBy(items, 'stargazers_count')}}</td>
-          <td></td>
-          <td>{{sumBy(items, 'open_issues')}}</td>
-          <td></td>
+      <template #head.openIssues>
+        Here Be Dragons
+        <font-awesome-icon icon="dragon" />
       </template>
+
+      <template #foot.stargazers="{items}">{{sumBy(items, 'stargazers_count')}}</template>
+      <template #foot.openIssues="{items}">{{sumBy(items, 'open_issues')}}</template>
     </VSTable>
   </div>
 </template>
