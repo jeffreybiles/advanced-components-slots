@@ -4,16 +4,14 @@
 
     <VSTable v-if="projects.length"
              :items="projects">
-      <template #item="{item, highlight, remove}">
-        <td>{{item.name}}</td>
-        <td>{{item.stargazers_count}} <font-awesome-icon icon="star" /></td>
-        <td>{{item.language}}</td>
-        <td>{{item.open_issues}} issues</td>
-        <td>
-          <button @click="highlight(item)">Highlight</button>
-          <button @click="remove(item)">Remove</button>
-        </td>
+             
+      <template #item.stargazers="{item}">
+        {{item.stargazers_count}} <font-awesome-icon icon="star" />
       </template>
+      <template #item.openIssues="{item}">
+        {{item.open_issues}} issues
+      </template>
+
       <template #head>
         <th>Name</th>
         <th>

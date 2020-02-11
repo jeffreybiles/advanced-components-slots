@@ -25,13 +25,31 @@
           :key="item.id"
           :class="`${item.highlighted ? 'highlighted' : 'normal'}`">
         <slot name="item" :item="item" :highlight="highlight" :remove="remove">
-          <td>{{item.name}}</td>
-          <td>{{item.stargazers_count}}</td>
-          <td>{{item.language}}</td>
-          <td>{{item.open_issues}}</td>
           <td>
-            <button @click="highlight(item)">Highlight</button>
-            <button @click="remove(item)">Remove</button>
+            <slot name="item.name" :item="item">
+              {{item.name}}
+            </slot>
+          </td>
+          <td>
+            <slot name="item.stargazers" :item="item">
+              {{item.stargazers_count}}
+            </slot>
+          </td>
+          <td>
+            <slot name="item.language" :item="item">
+              {{item.language}}
+            </slot>
+          </td>
+          <td>
+            <slot name="item.openIssues" :item="item">
+              {{item.open_issues}}
+            </slot>
+          </td>
+          <td>
+            <slot name="item.actions" :item="item" :highlight="highlight" :remove="remove">
+              <button @click="highlight(item)">Highlight</button>
+              <button @click="remove(item)">Remove</button>
+            </slot>
           </td>
         </slot>
       </tr>
