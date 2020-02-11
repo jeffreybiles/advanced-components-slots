@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-for="(item, index) in new Array(maxIcons)" :key="index">
-      <Let :func="{isFilled: index <= calculatedRating - 1, 
+      <Let :val="{isFilled: index <= calculatedRating - 1, 
                    isHalf: calculatedRating - index == 0.5}" v-slot="{val: {isFilled, isHalf}}">
         <span @click="changeRating(index + 1)">
           <slot :isFilled="isFilled" :isHalf="isHalf">

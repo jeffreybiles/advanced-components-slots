@@ -1,12 +1,12 @@
 <template>
   <span>
-    <slot :val="func" />
+    <slot :val="val" />
   </span>
 </template>
 
 <script>
   export default {
-    props: ['func']
+    props: ['val']
   }
 </script>
 
