@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Part2 from '@/views/Part2.vue';
+import Part2_1 from '@/views/Part2-1.vue';
 
 Vue.use(VueRouter)
 
@@ -13,8 +14,13 @@ const routes = [
   },
   {
     path: '/part-2',
-    name: '/part-2',
+    name: 'part-2',
     component: Part2
+  },
+  {
+    path: '/part-2-1',
+    name: 'part-2-1',
+    component: Part2_1
   }
 ]
 
