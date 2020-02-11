@@ -17,13 +17,16 @@
       </tr>
     </tfoot>
     <tbody>
-      <tr v-for="project in items" :key="project.id">
+      <tr v-for="project in items" 
+          :key="project.id"
+          :class="`${project.highlighted ? 'highlighted' : 'normal'}`">
         <td>{{project.name}}</td>
         <td>{{project.stargazers_count}}</td>
         <td>{{project.language}}</td>
         <td>{{project.open_issues}}</td>
         <td>
-
+          <button @click="highlight(project)">Highlight</button>
+          <button @click="remove(project)">Remove</button>
         </td>
       </tr>
     </tbody>
@@ -31,7 +34,20 @@
 </template>
 
 <script>
+  import Vue from 'vue';
+
   export default {
+    methods: {
+      highlight(item) {
+        item.highlighted = !item.highlighted;
+        let index = this.items.findIndex(i => i.id === item.id);
+        Vue.set(this.items, index, item);
+      },
+      remove(item) {
+        let index = this.items.findIndex(p => p.id === item.id)
+        this.items.splice(index, 1)
+      }
+    },
     props: {
       items: {
         type: Array,
@@ -49,6 +65,9 @@ table {
   border-collapse: collapse;
 
   tr {
+    &.highlighted {
+      background-color: #8FEE90;
+    }
     td, th {
       padding: 0.5rem;
       text-align: left;
@@ -58,6 +77,10 @@ table {
     }
     &:nth-child(2n) {
       background-color: #DDD;
+
+      &.highlighted {
+        background-color: #7FDE80
+      }
     }
   }
 
