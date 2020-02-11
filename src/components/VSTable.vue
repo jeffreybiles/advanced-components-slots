@@ -1,19 +1,23 @@
 <template>
   <table v-if="items">
     <thead>
-      <th>Name</th>
-      <th>Stargazers</th>
-      <th>Language</th>
-      <th>Open Issues</th>
-      <th>Actions</th>
+      <slot name="head">
+        <th>Name</th>
+        <th>Stargazers</th>
+        <th>Language</th>
+        <th>Open Issues</th>
+        <th>Actions</th>
+      </slot>
     </thead>
     <tfoot>
       <tr>
-        <td><strong>Totals</strong></td>
-        <td>{{totalStargazers}}</td>
-        <td></td>
-        <td>{{totalOpenIssues}}</td>
-        <td></td>
+        <slot name="foot" :items="items">
+          <td><strong>Totals</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </slot>
       </tr>
     </tfoot>
     <tbody>
@@ -55,8 +59,6 @@
         type: Array,
         required: true
       },
-      totalStargazers: Number,
-      totalOpenIssues: Number
     }
   }
 </script>

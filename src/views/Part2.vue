@@ -3,9 +3,7 @@
     <h1>Slots II</h1>
 
     <VSTable v-if="projects.length"
-             :items="projects"
-             :totalStargazers="sumBy(projects, 'stargazers_count')"
-             :totalOpenIssues="sumBy(projects, 'open_issues')">
+             :items="projects">
       <template #item="{item, highlight, remove}">
         <td>{{item.name}}</td>
         <td>{{item.stargazers_count}} <font-awesome-icon icon="star" /></td>
@@ -15,6 +13,26 @@
           <button @click="highlight(item)">Highlight</button>
           <button @click="remove(item)">Remove</button>
         </td>
+      </template>
+      <template #head>
+        <th>Name</th>
+        <th>
+          <font-awesome-icon icon="star" />
+          <font-awesome-icon icon="star" />
+          <font-awesome-icon icon="star" />
+        </th>
+        <th>Language</th>
+        <th>Here Be Dragons
+          <font-awesome-icon icon="dragon" />
+        </th>
+        <th>Actions</th>
+      </template>
+      <template #foot="{items}">
+          <td><strong>Totals</strong></td>
+          <td>{{sumBy(items, 'stargazers_count')}}</td>
+          <td></td>
+          <td>{{sumBy(items, 'open_issues')}}</td>
+          <td></td>
       </template>
     </VSTable>
   </div>
