@@ -17,16 +17,16 @@
       </tr>
     </tfoot>
     <tbody>
-      <tr v-for="project in items" 
-          :key="project.id"
-          :class="`${project.highlighted ? 'highlighted' : 'normal'}`">
-        <td>{{project.name}}</td>
-        <td>{{project.stargazers_count}}</td>
-        <td>{{project.language}}</td>
-        <td>{{project.open_issues}}</td>
+      <tr v-for="item in items" 
+          :key="item.id"
+          :class="`${item.highlighted ? 'highlighted' : 'normal'}`">
+        <td>{{item.name}}</td>
+        <td>{{item.stargazers_count}}</td>
+        <td>{{item.language}}</td>
+        <td>{{item.open_issues}}</td>
         <td>
-          <button @click="highlight(project)">Highlight</button>
-          <button @click="remove(project)">Remove</button>
+          <button @click="highlight(item)">Highlight</button>
+          <button @click="remove(item)">Remove</button>
         </td>
       </tr>
     </tbody>
@@ -44,7 +44,7 @@
         Vue.set(this.items, index, item);
       },
       remove(item) {
-        let index = this.items.findIndex(p => p.id === item.id)
+        let index = this.items.findIndex(i => i.id === item.id)
         this.items.splice(index, 1)
       }
     },

@@ -30,7 +30,7 @@
       async findData(){
         let url = `https://api.github.com/orgs/${this.username}/repos`;
         let results = await this.axios.get(url);
-        this.projects =  results.data;
+        this.projects = results.data;
       },
       sumBy(array, property){
         return _.sum(array.map(x => x[property]))
