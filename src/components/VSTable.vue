@@ -20,14 +20,16 @@
       <tr v-for="item in items" 
           :key="item.id"
           :class="`${item.highlighted ? 'highlighted' : 'normal'}`">
-        <td>{{item.name}}</td>
-        <td>{{item.stargazers_count}}</td>
-        <td>{{item.language}}</td>
-        <td>{{item.open_issues}}</td>
-        <td>
-          <button @click="highlight(item)">Highlight</button>
-          <button @click="remove(item)">Remove</button>
-        </td>
+        <slot name="item" :item="item" :highlight="highlight" :remove="remove">
+          <td>{{item.name}}</td>
+          <td>{{item.stargazers_count}}</td>
+          <td>{{item.language}}</td>
+          <td>{{item.open_issues}}</td>
+          <td>
+            <button @click="highlight(item)">Highlight</button>
+            <button @click="remove(item)">Remove</button>
+          </td>
+        </slot>
       </tr>
     </tbody>
   </table>
