@@ -19,7 +19,7 @@
       <slot name="footer"></slot>
     </tfoot>
     <tbody>
-      <tr v-for="item in sortedItems" 
+      <tr v-for="item in sortedTableItems" 
           :key="item.id"
           :class="`${item.highlighted ? 'highlighted' : 'normal'}`">
         <slot name="row" :item="item" :remove="remove" :highlight="highlight" >
@@ -47,13 +47,14 @@
     data(){
       return {
         sortBy: '',
-        sortDescending: true
+        sortDescending: true,
+        tableItems: this.items
       }
     },
     computed: {
-      sortedItems(){
+      sortedTableItems(){
         let sortBy = this.sortBy;
-        return this.items.sort((p1, p2) => {
+        return this.tableItems.sort((p1, p2) => {
           let p1Greater = p1[sortBy] > p2[sortBy];
           if(p1Greater ? this.sortDescending : !this.sortDescending) {
             return -1
@@ -66,12 +67,12 @@
     methods: {
       highlight(item) {
         item.highlighted = !item.highlighted
-        let index = this.items.findIndex(p => p.id === item.id)
-        Vue.set(this.items, index, item)
+        let index = this.tableItems.findIndex(p => p.id === item.id)
+        Vue.set(this.tableItems, index, item)
       },
       remove(item) {
-        let index = this.items.findIndex(p => p.id === item.id)
-        this.items.splice(index, 1)
+        let index = this.tableItems.findIndex(p => p.id === item.id)
+        this.tableItems.splice(index, 1)
       },
       sort(newSort) {
         if(this.sortBy == newSort) {

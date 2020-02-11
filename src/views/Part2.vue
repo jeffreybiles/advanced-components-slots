@@ -10,8 +10,8 @@
           {{item.stargazers_count}} <font-awesome-icon icon="star" />
         </template>
         <template #column.actions="{item, remove, highlight}">
-          <VSButton @click="remove(item)">
-            GOODBYE
+          <VSButton @click="highlight(item)">
+            Highlight
           </VSButton>
         </template>
         <template #header.stargazers>

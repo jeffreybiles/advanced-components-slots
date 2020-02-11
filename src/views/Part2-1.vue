@@ -1,7 +1,7 @@
 <template>
   <div>
     <DataLoader endpoint="https://vue-screencasts-server.herokuapp.com/api/courses" v-slot="{results}">
-      <VSTable :items="results.data.map(i => i.attributes)" :headers="headers">
+      <VSTable :items="results.data.map(i => { return {...i.attributes, id: i.id}})" :headers="headers">
 
       </VSTable>
     </DataLoader>
@@ -21,7 +21,8 @@
       return {
         headers: [
           {id: 'name', name: 'Name', sortBy: 'name'},
-          {id: 'difficulty', name: 'Difficulty', sortBy: 'difficulty'}
+          {id: 'difficulty', name: 'Difficulty', sortBy: 'difficulty'},
+          {id: 'actions', name: 'Actions', sortBy: ''}
         ]
       }
     }
