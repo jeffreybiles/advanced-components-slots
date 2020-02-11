@@ -2,21 +2,21 @@
   <table v-if="items">
     <thead>
       <slot name="head">
-        <th>Name</th>
-        <th>Stargazers</th>
-        <th>Language</th>
-        <th>Open Issues</th>
-        <th>Actions</th>
+        <th v-for="column in columns"
+            :key="column.id">
+          <slot :name="`head.${column.id}`">
+            {{column.name}}
+          </slot>
+        </th>
       </slot>
     </thead>
     <tfoot>
       <tr>
         <slot name="foot" :items="items">
-          <td><strong>Totals</strong></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td v-for="column in columns"
+              :key="column.id">
+            <slot :name="`foot.${column.id}`" :items="items"/>
+          </td>
         </slot>
       </tr>
     </tfoot>
@@ -49,11 +49,11 @@
     data(){
       return {
         columns: [
-          {id: 'name', propertyName: 'name'},
-          {id: 'stargazers', propertyName: 'stargazers_count'},
-          {id: 'language', propertyName: 'language'},
-          {id: 'openIssues', propertyName: 'open_issues'},
-          {id: 'actions'}
+          {id: 'name', propertyName: 'name', name: "Name"},
+          {id: 'stargazers', propertyName: 'stargazers_count', name: "Stargazers Count"},
+          {id: 'language', propertyName: 'language', name: "Language"},
+          {id: 'openIssues', propertyName: 'open_issues', name: "Open Issues"},
+          {id: 'actions', name: "Actions"}
         ]
       }
     },
