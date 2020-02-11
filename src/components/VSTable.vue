@@ -25,30 +25,15 @@
           :key="item.id"
           :class="`${item.highlighted ? 'highlighted' : 'normal'}`">
         <slot name="item" :item="item" :highlight="highlight" :remove="remove">
-          <td>
-            <slot name="item.name" :item="item">
-              {{item.name}}
-            </slot>
-          </td>
-          <td>
-            <slot name="item.stargazers" :item="item">
-              {{item.stargazers_count}}
-            </slot>
-          </td>
-          <td>
-            <slot name="item.language" :item="item">
-              {{item.language}}
-            </slot>
-          </td>
-          <td>
-            <slot name="item.openIssues" :item="item">
-              {{item.open_issues}}
-            </slot>
-          </td>
-          <td>
-            <slot name="item.actions" :item="item" :highlight="highlight" :remove="remove">
-              <button @click="highlight(item)">Highlight</button>
-              <button @click="remove(item)">Remove</button>
+          <td v-for="column in columns" :key="column.id">
+            <slot :name="`item.${column.id}`" :item="item" :highlight="highlight" :remove="remove">
+              <span v-if="column.id == 'actions'">
+                <button @click="highlight(item)">Highlight</button>
+                <button @click="remove(item)">Remove</button>
+              </span>
+              <span v-else>
+                {{item[column.propertyName]}}
+              </span>
             </slot>
           </td>
         </slot>
@@ -61,6 +46,17 @@
   import Vue from 'vue';
 
   export default {
+    data(){
+      return {
+        columns: [
+          {id: 'name', propertyName: 'name'},
+          {id: 'stargazers', propertyName: 'stargazers_count'},
+          {id: 'language', propertyName: 'language'},
+          {id: 'openIssues', propertyName: 'open_issues'},
+          {id: 'actions'}
+        ]
+      }
+    },
     methods: {
       highlight(item) {
         item.highlighted = !item.highlighted;
