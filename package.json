@@ -13,6 +13,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "axios": "^0.19.2",
     "core-js": "^3.4.4",
+    "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",

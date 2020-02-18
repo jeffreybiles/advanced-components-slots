@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>Slots II</h1>
+    <h1>Slots III</h1>
+
+    <input v-model="username" />
 
     <VSTable :items="projects"
              :columns="columns">
@@ -53,10 +55,19 @@
     created(){
       this.findData()
     },
+    watch: {
+      username: function(){
+        this.findData();
+      }
+    },
     methods: {
       async findData(){
         let url = `https://api.github.com/orgs/${this.username}/repos`;
-        let results = await this.axios.get(url);
+        let results = await this.axios.get(url, {
+          headers: {
+            'Authorization': `token ${process.env.VUE_APP_GITHUB_AUTH}`
+          }
+        });
         this.projects = results.data;
       },
       sumBy(array, property){
