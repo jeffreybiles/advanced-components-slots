@@ -2,8 +2,7 @@
   <div>
     <h1>Slots II</h1>
 
-    <VSTable v-if="projects.length"
-             :items="projects"
+    <VSTable :items="projects"
              :columns="columns">
              
       <template #item.stargazers="{item}">
