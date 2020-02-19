@@ -4,6 +4,7 @@
 
     <input v-model="username" />
 
+
     <VSTable :items="projects"
              :columns="columns">
              
@@ -13,7 +14,7 @@
       <template #item.openIssues="{item}">
         {{item.open_issues}} issues
       </template>
-
+    
       <template #head.stargazers>
         <font-awesome-icon icon="star" />
         <font-awesome-icon icon="star" />
