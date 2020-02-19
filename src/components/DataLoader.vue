@@ -1,18 +1,25 @@
 <template>
   <div>
-    <slot name="loaded" :data="data" />
+    <slot name="loading" v-if="loading">
+      <Spinner />
+    </slot>
+    <slot name="loaded" v-else :data="data" />
   </div>
 </template>
 
 <script>
   import _ from 'lodash'
+  import Spinner from '@/components/Spinner.vue';
   export default {
     data(){
       return {
-        data: null
+        data: null,
+        loading: false,
       }
     },
-
+    components: {
+      Spinner
+    },
     created(){
       this.findData()
     },
@@ -23,12 +30,14 @@
     },
     methods: {
       async findData(){
+        this.loading = true;
         let results = await this.axios.get(this.endpoint, {
           headers: {
             'Authorization': `token ${this.authToken}`
           }
         });
         this.data = results.data;
+        this.loading = false;
       },
     },
     props: {

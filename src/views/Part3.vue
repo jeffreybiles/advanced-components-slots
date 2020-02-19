@@ -5,6 +5,9 @@
     <input v-model="username" />
 
     <DataLoader :endpoint="`https://api.github.com/orgs/${this.username}/repos`" :authToken="authToken">
+      <template #loading>
+        Loading your github projects
+      </template>
       <template #loaded="{data}">
         <VSTable :items="data ||  []"
                 :columns="columns">
