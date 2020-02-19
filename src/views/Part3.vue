@@ -4,7 +4,7 @@
 
     <input v-model="username" />
 
-    <DataLoader :endpoint="`https://api.github.com/orgs/${this.username}/repos`">
+    <DataLoader :endpoint="`https://api.github.com/orgs/${this.username}/repos`" :authToken="authToken">
       <template #loaded="{data}">
         <VSTable :items="data ||  []"
                 :columns="columns">
@@ -55,7 +55,8 @@
           {id: 'openIssues', propertyName: 'open_issues', name: "Open Issues"},
           {id: 'forks', propertyName: 'forks', name: '# of forks'},
           {id: 'actions', name: "Actions"}
-        ]
+        ],
+        authToken: process.env.VUE_APP_GITHUB_AUTH
       }
     },
     methods: {

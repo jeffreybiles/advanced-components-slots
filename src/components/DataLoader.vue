@@ -24,7 +24,7 @@
       async findData(){
         let results = await this.axios.get(this.endpoint, {
           headers: {
-            'Authorization': `token ${process.env.VUE_APP_GITHUB_AUTH}`
+            'Authorization': `token ${this.authToken}`
           }
         });
         this.data = results.data;
@@ -34,6 +34,10 @@
       endpoint: {
         type: String,
         required: true
+      },
+      authToken: {
+        type: String,
+        required: false
       }
     }
   }
