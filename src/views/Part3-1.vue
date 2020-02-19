@@ -1,21 +1,27 @@
 <template>
   <div>
-    <VSTable :columns="columns" :items="courses">
-      <template #item.difficulty="{item}">
-        <span v-if="item.difficulty == 'beginner'" style="color: green;">Easy</span>
-        <span v-if="item.difficulty == 'intermediate'" style="color: orange;">Intermediate</span>
-        <span v-if="item.difficulty == 'advanced'" style="color: red;">Hard</span>
+    <DataLoader endpoint="https://vue-screencasts-server.herokuapp.com/api/courses">
+      <template #loaded="{data}">
+        <VSTable :columns="columns" :items="data && data.data.map(c => { return {...c.attributes, id: c.id}}) || []">
+          <template #item.difficulty="{item}">
+            <span v-if="item.difficulty == 'beginner'" style="color: green;">Easy</span>
+            <span v-if="item.difficulty == 'intermediate'" style="color: orange;">Intermediate</span>
+            <span v-if="item.difficulty == 'advanced'" style="color: red;">Hard</span>
+          </template>
+        </VSTable>
       </template>
-    </VSTable>
+    </DataLoader>
   </div>
 </template>
 
 <script>
   import VSTable from '@/components/VSTable.vue';
+  import DataLoader from '@/components/DataLoader.vue';
 
   export default {
     components: {
-      VSTable
+      VSTable,
+      DataLoader
     },
     data(){
       return {
@@ -27,16 +33,6 @@
         ]
       }
     },
-    created(){
-      this.findData()
-    },
-    methods: {
-      async findData(){
-        let url = 'https://vue-screencasts-server.herokuapp.com/api/courses';
-        let results = await this.axios.get(url);
-        this.courses = results.data.data.map(c => { return {...c.attributes, id: c.id}})
-      }
-    }
   }
 </script>
 

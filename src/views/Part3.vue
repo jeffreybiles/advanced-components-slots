@@ -4,39 +4,45 @@
 
     <input v-model="username" />
 
-    <VSTable :items="projects"
-             :columns="columns">
-             
-      <template #item.stargazers="{item}">
-        {{item.stargazers_count}} <font-awesome-icon icon="star" />
-      </template>
-      <template #item.openIssues="{item}">
-        {{item.open_issues}} issues
-      </template>
+    <DataLoader :endpoint="`https://api.github.com/orgs/${this.username}/repos`">
+      <template #loaded="{data}">
+        <VSTable :items="data ||  []"
+                :columns="columns">
+                
+          <template #item.stargazers="{item}">
+            {{item.stargazers_count}} <font-awesome-icon icon="star" />
+          </template>
+          <template #item.openIssues="{item}">
+            {{item.open_issues}} issues
+          </template>
 
-      <template #head.stargazers>
-        <font-awesome-icon icon="star" />
-        <font-awesome-icon icon="star" />
-        <font-awesome-icon icon="star" />
-      </template>
-      <template #head.openIssues>
-        Here Be Dragons
-        <font-awesome-icon icon="dragon" />
-      </template>
+          <template #head.stargazers>
+            <font-awesome-icon icon="star" />
+            <font-awesome-icon icon="star" />
+            <font-awesome-icon icon="star" />
+          </template>
+          <template #head.openIssues>
+            Here Be Dragons
+            <font-awesome-icon icon="dragon" />
+          </template>
 
-      <template #foot.stargazers="{items}">{{sumBy(items, 'stargazers_count')}}</template>
-      <template #foot.openIssues="{items}">{{sumBy(items, 'open_issues')}}</template>
-    </VSTable>
+          <template #foot.stargazers="{items}">{{sumBy(items, 'stargazers_count')}}</template>
+          <template #foot.openIssues="{items}">{{sumBy(items, 'open_issues')}}</template>
+        </VSTable>
+      </template>
+    </DataLoader>
   </div>
 </template>
 
 <script>
   import VSTable from '@/components/VSTable.vue';
+  import DataLoader from '@/components/DataLoader.vue';
   import _ from 'lodash';
 
   export default {
     components: {
-      VSTable
+      VSTable,
+      DataLoader
     },
     data(){
       return {
@@ -52,24 +58,7 @@
         ]
       }
     },
-    created(){
-      this.findData()
-    },
-    watch: {
-      username: function(){
-        this.findData();
-      }
-    },
     methods: {
-      async findData(){
-        let url = `https://api.github.com/orgs/${this.username}/repos`;
-        let results = await this.axios.get(url, {
-          headers: {
-            'Authorization': `token ${process.env.VUE_APP_GITHUB_AUTH}`
-          }
-        });
-        this.projects = results.data;
-      },
       sumBy(array, property){
         return _.sum(array.map(x => x[property]))
       }
