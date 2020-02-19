@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  import _ from 'lodash'
   export default {
     data(){
       return {
@@ -16,9 +17,9 @@
       this.findData()
     },
     watch: {
-      endpoint: function(){
+      endpoint: _.debounce(function(){
         this.findData();
-      }
+      }, 300)
     },
     methods: {
       async findData(){
