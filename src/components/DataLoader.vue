@@ -1,8 +1,13 @@
 <template>
   <div>
-    <slot name="loading" v-if="loading">
-      <Spinner />
-    </slot>
+    <div v-if="loading">
+      <slot name="loading">
+        <Spinner />
+
+      </slot>
+      <slot name="loading-message">Loading your data...</slot>
+    </div>
+
     <slot name="loaded" v-else :data="data" />
   </div>
 </template>
