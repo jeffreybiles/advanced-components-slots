@@ -7,7 +7,7 @@
       </slot>
       <slot name="loading-message">Loading your data...</slot>
     </div>
-
+    <slot name="error" v-else-if="error">{{error}}</slot>
     <slot name="loaded" v-else :data="data" />
   </div>
 </template>
@@ -20,6 +20,7 @@
       return {
         data: null,
         loading: false,
+        error: null,
       }
     },
     components: {
@@ -35,13 +36,20 @@
     },
     methods: {
       async findData(){
-        this.loading = true;
-        let results = await this.axios.get(this.endpoint, {
-          headers: {
-            'Authorization': `token ${this.authToken}`
-          }
-        });
-        this.data = results.data;
+        try {
+          this.error = null;
+          this.loading = true;
+          let results = await this.axios.get(this.endpoint, {
+            headers: {
+              'Authorization': `token ${this.authToken}`
+            }
+          });
+          this.data = results.data;
+        } catch(e) {
+          console.log(e);
+          this.error = "This resource is not loading"
+        }
+
         this.loading = false;
       },
     },

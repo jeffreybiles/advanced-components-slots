@@ -8,6 +8,9 @@
       <template #loading-message>
         <h3>Loading your github projects</h3>
       </template>
+      <template #error>
+        We could not find an organization called <strong>{{username}}</strong>
+      </template>
       <template #loaded="{data}">
         <VSTable :items="data ||  []"
                 :columns="columns">
