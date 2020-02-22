@@ -1,5 +1,5 @@
 <template>
-  <button class="btn">
+  <button class="btn" @click="$emit('click')">
     <slot>Default Text</slot>
   </button>
 </template>
