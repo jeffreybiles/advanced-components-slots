@@ -1,5 +1,16 @@
 <template>
   <div>
+    <slot name="pagination-count">
+      <div class="pagination-count">
+        Results per page:
+        <span v-for="paginationCount in paginationCounts" :key="paginationCount">
+          <button @click="changePaginationCount(paginationCount)"                  
+                  :class="['pagination-count-button', paginationCount == perPage ? 'active' : '']">
+            {{paginationCount}}
+          </button>
+        </span>
+      </div>
+    </slot>
     <slot name="pagination-bar">
       <div class="pagination-bar" :pageNumber="pageNumber" :goToPage="goToPage">
         <!-- Left arrow button -->
@@ -21,7 +32,8 @@
                 :target="index + 1"
                 :active="index + 1 == pageNumber"
                 :text="index + 1">
-            <button @click="goToPage(index + 1)" :class="['pagination-button', index + 1 == pageNumber ? 'active' : '']">
+            <button @click="goToPage(index + 1)" 
+                    :class="['pagination-button', index + 1 == pageNumber ? 'active' : '']">
               {{index + 1}}
             </button>
           </slot>
@@ -49,7 +61,8 @@
     data(){
       return {
         perPage: this.$route.query.perPage || 20,
-        pageNumber: this.$route.query.pageNumber || 1
+        pageNumber: this.$route.query.pageNumber || 1,
+        paginationCounts: [5, 10, 25, 50]
       }
     },
     methods: {
@@ -59,6 +72,15 @@
           this.$router.push({path: this.$route.path, query: { 
             ...this.$route.query,
             pageNumber: pageNumber, 
+          }})
+        }
+      },
+      changePaginationCount(resultsPerPage) {
+        if(resultsPerPage != this.perPage) {
+          this.perPage = resultsPerPage;
+          this.$router.push({path: this.$route.path, query: {
+            ...this.$route.query,
+            perPage: resultsPerPage
           }})
         }
       }
@@ -78,7 +100,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .pagination-button {
+  .pagination-button, .pagination-count-button {
     &.active {
       background-color: #ccc;
     }

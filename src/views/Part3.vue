@@ -86,7 +86,7 @@
     watch: {
       orgName(newName, oldName) {
         this.$router.push({path: this.$route.path, query: { 
-          ...this.$router.query,
+          ...this.$route.query,
           orgName: newName,
           pageNumber: 1, 
         }})
