@@ -2,23 +2,23 @@
   <div>
     <h1>Slots III</h1>
 
-    <input v-model="username" />
+    <input v-model="orgName" />
 
 
-    <DataLoader :endpoint="`https://api.github.com/orgs/${username}`" :authToken="authToken">
+    <DataLoader :endpoint="`https://api.github.com/orgs/${orgName}`" :authToken="authToken">
       <template #loaded="{data}">
         <VSPagination :total="data.public_repos">
           <template #pagination-button="{goToPage, target, text, disabled, active}">
             <VSButton @click="goToPage(target)" :disabled="disabled" :class="[active ? 'active' : '']">{{text}}</VSButton>
           </template>
           <template #default="{pageNumber, perPage}">
-            <DataLoader :endpoint="`https://api.github.com/orgs/${username}/repos?page=${pageNumber}&per_page=${perPage}`" 
+            <DataLoader :endpoint="`https://api.github.com/orgs/${orgName}/repos?page=${pageNumber}&per_page=${perPage}`" 
                         :authToken="authToken">
               <template #loading-message>
                 <h3>Loading your github projects</h3>
               </template>
               <template #error>
-                We could not find an organization called <strong>{{username}}</strong>
+                We could not find an organization called <strong>{{orgName}}</strong>
               </template>
               <template #loaded="{data}">
                 <VSTable :items="data ||  []"
@@ -69,7 +69,7 @@
     },
     data(){
       return {
-        username: 'vuejs',
+        orgName: 'vuejs',
         projects: [],
         columns: [
           {id: 'name', propertyName: 'name', name: "Name"},
@@ -84,7 +84,7 @@
       }
     },
     watch: {
-      username(newName, oldName) {
+      orgName(newName, oldName) {
         this.$router.push({path: this.$route.path, query: { 
           ...this.$router.query,
           orgName: newName,
