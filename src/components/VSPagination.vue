@@ -31,7 +31,7 @@
         <slot name="pagination-button" 
               :goToPage="goToPage" 
               :target="pageNumber + 1" 
-              text="&gt;-"
+              text="-&gt;"
               :disabled="pageNumber >= totalPages">
           <button :disabled="pageNumber >= totalPages" 
                   @click="goToPage(pageNumber + 1)">
