@@ -21,7 +21,7 @@
                 :target="index + 1"
                 :active="index + 1 == pageNumber"
                 :text="index + 1">
-            <button @click="goToPage(index + 1)" :class="[index + 1 == pageNumber ? 'active' : '']">
+            <button @click="goToPage(index + 1)" :class="['pagination-button', index + 1 == pageNumber ? 'active' : '']">
               {{index + 1}}
             </button>
           </slot>
@@ -78,7 +78,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .active {
-    opacity: 0.7;
+  .pagination-button {
+    &.active {
+      background-color: #ccc;
+    }
   }
 </style>
