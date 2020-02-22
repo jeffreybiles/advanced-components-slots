@@ -25,6 +25,7 @@
               text="&lt;-" 
               :disabled="pageNumber <= 1">
           <button :disabled="pageNumber <= 1" 
+                  class="pagination-button"
                   @click="goToPage(pageNumber - 1)"> 
             &lt;- 
           </button>
@@ -50,7 +51,8 @@
               :target="pageNumber + 1" 
               text="-&gt;"
               :disabled="pageNumber >= totalPages">
-          <button :disabled="pageNumber >= totalPages" 
+          <button :disabled="pageNumber >= totalPages"
+                  class="pagination-button"
                   @click="goToPage(pageNumber + 1)">
             -&gt;
           </button>
@@ -106,6 +108,12 @@
 
 <style lang="scss" scoped>
   .pagination-button, .pagination-count-button {
+    padding: 8px;
+    margin: 2px;
+    border-radius: 3px;
+    font-size: 1em;
+    cursor: pointer;
+    
     &.active {
       background-color: #ccc;
     }
