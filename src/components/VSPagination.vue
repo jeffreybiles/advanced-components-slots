@@ -59,7 +59,7 @@
         </slot>
       </div>
     </slot>
-    <slot :perPage="perPage" :pageNumber="pageNumber" />
+    <slot :perPage="perPage" :pageNumber="pageNumber" :paginatedItems="paginatedItems" />
   </div>
 </template>
 
@@ -100,13 +100,23 @@
     },
     computed: {
       totalPages(){
-        return Math.ceil(this.total / this.perPage);
+        return Math.ceil(this.totalItems / this.perPage);
+      },
+      paginatedItems(){
+        if(this.items) {
+          let end = this.perPage * this.pageNumber;
+          return this.items.slice(end - this.perPage, end)
+        }
       }
     },
     props: {
-      total: {
+      totalItems: {
         type: [String, Number],
         default: 0
+      },
+      items: {
+        type: Array,
+        required: false
       }
     }
   }
