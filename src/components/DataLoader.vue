@@ -21,6 +21,7 @@
         data: null,
         loading: false,
         error: null,
+        isDebouncing: true
       }
     },
     components: {
@@ -28,11 +29,15 @@
     },
     created(){
       this.findData()
-    },
-    watch: {
-      endpoint: _.debounce(function(){
+
+      this.updateEndpoint = _.debounce(function(){
         this.findData();
       }, 300)
+    },
+    watch: {
+      endpoint: function(){
+        this.updateEndpoint();
+      }
     },
     methods: {
       async findData(){
@@ -51,7 +56,7 @@
         }
 
         this.loading = false;
-      },
+      }
     },
     props: {
       endpoint: {
