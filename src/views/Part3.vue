@@ -83,6 +83,15 @@
         perPage: 20
       }
     },
+    watch: {
+      username(newName, oldName) {
+        this.$router.push({path: this.$route.path, query: { 
+          ...this.$router.query,
+          orgName: newName,
+          pageNumber: 1, 
+        }})
+      }
+    },
     methods: {
       sumBy(array, property){
         return _.sum(array.map(x => x[property]))

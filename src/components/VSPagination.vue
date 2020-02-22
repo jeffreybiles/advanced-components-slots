@@ -56,7 +56,10 @@
       goToPage(pageNumber) {
         if(pageNumber != this.pageNumber) {
           this.pageNumber = pageNumber
-          this.$router.push({path: this.$route.path, query: { pageNumber: pageNumber, perPage: this.perPage}})
+          this.$router.push({path: this.$route.path, query: { 
+            ...this.$route.query,
+            pageNumber: pageNumber, 
+          }})
         }
       }
     },
