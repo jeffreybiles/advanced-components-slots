@@ -84,12 +84,14 @@
       },
       changePerPage(resultsPerPage) {
         if(resultsPerPage != this.perPage) {
-          // algorithm so the new results show some of the same items (and don't 'overshoot' and show empty page)
-          if(this.pageNumber > 1) {
-            this.pageNumber = Math.floor(this.perPage / resultsPerPage * this.pageNumber);
-          }
-
           this.perPage = resultsPerPage;
+
+          // code so the new results don't 'overshoot' and show empty page
+          let newTotalPages = Math.ceil(this.totalItems / resultsPerPage)
+          if(this.pageNumber > newTotalPages) {
+            this.pageNumber = newTotalPages
+          }
+          
           this.$router.push({path: this.$route.path, query: {
             ...this.$route.query,
             pageNumber: this.pageNumber,
