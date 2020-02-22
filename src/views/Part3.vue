@@ -4,37 +4,47 @@
 
     <input v-model="username" />
 
-    <DataLoader :endpoint="`https://api.github.com/orgs/${this.username}/repos`" :authToken="authToken">
-      <template #loading-message>
-        <h3>Loading your github projects</h3>
-      </template>
-      <template #error>
-        We could not find an organization called <strong>{{username}}</strong>
-      </template>
+
+    <DataLoader :endpoint="`https://api.github.com/orgs/${username}`" :authToken="authToken">
       <template #loaded="{data}">
-        <VSTable :items="data ||  []"
-                :columns="columns">
-                
-          <template #item.stargazers="{item}">
-            {{item.stargazers_count}} <font-awesome-icon icon="star" />
-          </template>
-          <template #item.openIssues="{item}">
-            {{item.open_issues}} issues
-          </template>
+        <VSPagination :total="data.public_repos">
+          <template #default="{pageNumber, perPage}">
+            <DataLoader :endpoint="`https://api.github.com/orgs/${username}/repos?page=${pageNumber}&per_page=${perPage}`" 
+                        :authToken="authToken">
+              <template #loading-message>
+                <h3>Loading your github projects</h3>
+              </template>
+              <template #error>
+                We could not find an organization called <strong>{{username}}</strong>
+              </template>
+              <template #loaded="{data}">
+                <VSTable :items="data ||  []"
+                        :columns="columns">
+                        
+                  <template #item.stargazers="{item}">
+                    {{item.stargazers_count}} <font-awesome-icon icon="star" />
+                  </template>
+                  <template #item.openIssues="{item}">
+                    {{item.open_issues}} issues
+                  </template>
 
-          <template #head.stargazers>
-            <font-awesome-icon icon="star" />
-            <font-awesome-icon icon="star" />
-            <font-awesome-icon icon="star" />
-          </template>
-          <template #head.openIssues>
-            Here Be Dragons
-            <font-awesome-icon icon="dragon" />
-          </template>
+                  <template #head.stargazers>
+                    <font-awesome-icon icon="star" />
+                    <font-awesome-icon icon="star" />
+                    <font-awesome-icon icon="star" />
+                  </template>
+                  <template #head.openIssues>
+                    Here Be Dragons
+                    <font-awesome-icon icon="dragon" />
+                  </template>
 
-          <template #foot.stargazers="{items}">{{sumBy(items, 'stargazers_count')}}</template>
-          <template #foot.openIssues="{items}">{{sumBy(items, 'open_issues')}}</template>
-        </VSTable>
+                  <template #foot.stargazers="{items}">{{sumBy(items, 'stargazers_count')}}</template>
+                  <template #foot.openIssues="{items}">{{sumBy(items, 'open_issues')}}</template>
+                </VSTable>
+              </template>
+            </DataLoader>
+          </template>
+        </VSPagination>
       </template>
     </DataLoader>
   </div>
@@ -43,11 +53,13 @@
 <script>
   import VSTable from '@/components/VSTable.vue';
   import DataLoader from '@/components/DataLoader.vue';
+  import VSPagination from '@/components/VSPagination.vue';
   import _ from 'lodash';
 
   export default {
     components: {
       VSTable,
+      VSPagination,
       DataLoader
     },
     data(){
@@ -62,7 +74,8 @@
           {id: 'forks', propertyName: 'forks', name: '# of forks'},
           {id: 'actions', name: "Actions"}
         ],
-        authToken: process.env.VUE_APP_GITHUB_AUTH
+        authToken: process.env.VUE_APP_GITHUB_AUTH,
+        perPage: 20
       }
     },
     methods: {
