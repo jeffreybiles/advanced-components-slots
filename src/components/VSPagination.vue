@@ -18,9 +18,10 @@
         <span v-for="(item, index) in new Array(totalPages)" :key="index">
           <slot name="pagination-button" 
                 :goToPage="goToPage" 
-                :target="index + 1" 
+                :target="index + 1"
+                :active="index + 1 == pageNumber"
                 :text="index + 1">
-            <button @click="goToPage(index + 1)">
+            <button @click="goToPage(index + 1)" :class="[index + 1 == pageNumber ? 'active' : '']">
               {{index + 1}}
             </button>
           </slot>
@@ -53,8 +54,10 @@
     },
     methods: {
       goToPage(pageNumber) {
-        this.pageNumber = pageNumber
-        this.$router.push({path: this.$route.path, query: { pageNumber: pageNumber, perPage: this.perPage}})
+        if(pageNumber != this.pageNumber) {
+          this.pageNumber = pageNumber
+          this.$router.push({path: this.$route.path, query: { pageNumber: pageNumber, perPage: this.perPage}})
+        }
       }
     },
     computed: {
@@ -72,7 +75,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .pagination-bar {
-
+  .active {
+    opacity: 0.7;
   }
 </style>

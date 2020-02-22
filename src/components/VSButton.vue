@@ -21,10 +21,11 @@
     box-shadow: 2px 2px rgb(39, 39, 196);
     cursor: pointer;
 
-    &:hover {
+    &:hover, &.active {
       box-shadow: 5px 5px rgb(39, 39, 196);
       left: -3px;
       top: -3px;
+      opacity: 1;
     }
   }
 </style>
