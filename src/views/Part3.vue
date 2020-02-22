@@ -2,14 +2,14 @@
   <div>
     <h1>Slots III</h1>
 
-    <input v-model="username" />
+    <input v-model="orgName" />
 
-    <DataLoader :endpoint="`https://api.github.com/orgs/${this.username}/repos`" :authToken="authToken">
+    <DataLoader :endpoint="`https://api.github.com/orgs/${this.orgName}/repos`" :authToken="authToken">
       <template #loading-message>
         <h3>Loading your github projects</h3>
       </template>
       <template #error>
-        We could not find an organization called <strong>{{username}}</strong>
+        We could not find an organization called <strong>{{orgName}}</strong>
       </template>
       <template #loaded="{data}">
         <VSTable :items="data ||  []"
@@ -52,7 +52,7 @@
     },
     data(){
       return {
-        username: 'vuejs',
+        orgName: 'vuejs',
         projects: [],
         columns: [
           {id: 'name', propertyName: 'name', name: "Name"},
