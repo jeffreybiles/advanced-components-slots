@@ -1,12 +1,42 @@
 <template>
   <div>
     <slot name="pagination-bar">
-      <div class="pagination-bar">
-        <button @click="goToPage(pageNumber - 1)"> &lt;- </button>
+      <div class="pagination-bar" :pageNumber="pageNumber" :goToPage="goToPage">
+        <!-- Left arrow button -->
+        <slot name="pagination-button" 
+              :goToPage="goToPage" 
+              :target="pageNumber - 1" 
+              text="&lt;-" 
+              :disabled="pageNumber <= 1">
+          <button :disabled="pageNumber <= 1" 
+                  @click="goToPage(pageNumber - 1)"> 
+            &lt;- 
+          </button>
+        </slot>
+
+        <!-- Numbered pagination buttons -->
         <span v-for="(item, index) in new Array(totalPages)" :key="index">
-          <button @click="goToPage(index + 1)">{{index + 1}}</button>
+          <slot name="pagination-button" 
+                :goToPage="goToPage" 
+                :target="index + 1" 
+                :text="index + 1">
+            <button @click="goToPage(index + 1)">
+              {{index + 1}}
+            </button>
+          </slot>
         </span>
-        <button @click="goToPage(pageNumber + 1)"> -&gt; </button>
+
+        <!-- Right arrow button -->
+        <slot name="pagination-button" 
+              :goToPage="goToPage" 
+              :target="pageNumber + 1" 
+              text="&gt;-"
+              :disabled="pageNumber >= totalPages">
+          <button :disabled="pageNumber >= totalPages" 
+                  @click="goToPage(pageNumber + 1)">
+            -&gt;
+          </button>
+        </slot>
       </div>
     </slot>
     <slot :perPage="perPage" :pageNumber="pageNumber" />
