@@ -11,6 +11,12 @@
           <template #pagination-button="{goToPage, target, text, disabled, active}">
             <VSButton @click="goToPage(target)" :disabled="disabled" :class="[active ? 'active' : '']">{{text}}</VSButton>
           </template>
+          <template #pagination-per-page-button="{isActive, perPage, changePerPage}">
+            <VSButton @click="changePerPage(perPage)"
+                      :class="[isActive ? 'active' : '']">
+              {{perPage}}
+            </VSButton>
+          </template>
           <template #default="{pageNumber, perPage}">
             <DataLoader :endpoint="`https://api.github.com/orgs/${orgName}/repos?page=${pageNumber}&per_page=${perPage}`" 
                         :authToken="authToken">

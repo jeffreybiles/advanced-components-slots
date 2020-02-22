@@ -2,12 +2,17 @@
   <div>
     <slot name="pagination-count">
       <div class="pagination-count">
-        Results per page:
-        <span v-for="paginationCount in paginationCounts" :key="paginationCount">
-          <button @click="changePaginationCount(paginationCount)"                  
-                  :class="['pagination-count-button', paginationCount == perPage ? 'active' : '']">
-            {{paginationCount}}
-          </button>
+        <slot name="pagination-per-page-text">Results per page:</slot>
+        <span v-for="itemsPerPage in itemsPerPageOptions" :key="itemsPerPage">
+          <slot name="pagination-per-page-button" 
+                :changePerPage="changePerPage"
+                :perPage="itemsPerPage"
+                :isActive="perPage == itemsPerPage">
+            <button @click="changePerPage(itemsPerPage)"                  
+                    :class="['pagination-count-button', perPage == itemsPerPage ? 'active' : '']">
+              {{itemsPerPage}}
+            </button>
+          </slot>
         </span>
       </div>
     </slot>
@@ -60,9 +65,9 @@
   export default {
     data(){
       return {
-        perPage: this.$route.query.perPage || 20,
+        perPage: this.$route.query.perPage || 25,
         pageNumber: this.$route.query.pageNumber || 1,
-        paginationCounts: [5, 10, 25, 50]
+        itemsPerPageOptions: [5, 10, 25, 50]
       }
     },
     methods: {
@@ -75,7 +80,7 @@
           }})
         }
       },
-      changePaginationCount(resultsPerPage) {
+      changePerPage(resultsPerPage) {
         if(resultsPerPage != this.perPage) {
           this.perPage = resultsPerPage;
           this.$router.push({path: this.$route.path, query: {
