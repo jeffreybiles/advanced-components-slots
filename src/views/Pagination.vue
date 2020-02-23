@@ -64,7 +64,7 @@
     },
     data(){
       return {
-        orgName: 'vuejs',
+        orgName: this.$route.query.orgName || 'vuejs',
         projects: [],
         columns: [
           {id: 'name', propertyName: 'name', name: "Name"},
@@ -75,6 +75,15 @@
           {id: 'actions', name: "Actions"}
         ],
         authToken: process.env.VUE_APP_GITHUB_AUTH
+      }
+    },
+    watch: {
+      orgName(newOrgName){
+        this.$router.push({path: this.$route.path, query: {
+          ...this.$route.query,
+          orgName: newOrgName,
+          pageNumber: 1
+        }})
       }
     },
     methods: {

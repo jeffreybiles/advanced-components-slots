@@ -40,7 +40,8 @@
       changePageNumber(newPageNumber) {
         this.pageNumber = newPageNumber;
         this.$router.push({path: this.$route.path, query: {
-          pageNumber: newPageNumber
+          ...this.$route.query,
+          pageNumber: newPageNumber,
         }})
       }
     },
