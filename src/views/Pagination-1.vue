@@ -2,13 +2,17 @@
   <div>
     <DataLoader endpoint="https://vue-screencasts-server.herokuapp.com/api/courses">
       <template #loaded="{data}">
-        <VSTable :columns="columns" :items="data && data.data.map(c => { return {...c.attributes, id: c.id}}) || []">
-          <template #item.difficulty="{item}">
-            <span v-if="item.difficulty == 'beginner'" style="color: green;">Easy</span>
-            <span v-if="item.difficulty == 'intermediate'" style="color: orange;">Intermediate</span>
-            <span v-if="item.difficulty == 'advanced'" style="color: red;">Hard</span>
+        <VSPagination :totalItems="data.data.length" :items="data && data.data.map(c => { return {...c.attributes, id: c.id}}) || []">
+          <template #data="{paginatedItems}">
+            <VSTable :columns="columns" :items="paginatedItems">
+              <template #item.difficulty="{item}">
+                <span v-if="item.difficulty == 'beginner'" style="color: green;">Easy</span>
+                <span v-if="item.difficulty == 'intermediate'" style="color: orange;">Intermediate</span>
+                <span v-if="item.difficulty == 'advanced'" style="color: red;">Hard</span>
+              </template>
+            </VSTable>
           </template>
-        </VSTable>
+        </VSPagination>
       </template>
     </DataLoader>
   </div>
@@ -17,11 +21,13 @@
 <script>
   import VSTable from '@/components/VSTable.vue';
   import DataLoader from '@/components/DataLoader.vue';
+  import VSPagination from '@/components/VSPagination.vue';
 
   export default {
     components: {
       VSTable,
-      DataLoader
+      DataLoader,
+      VSPagination
     },
     data(){
       return {

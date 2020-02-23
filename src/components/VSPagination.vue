@@ -27,7 +27,9 @@
       </button>
     </div>
 
-    <slot name="data" :pageNumber="pageNumber" :itemsPerPage="perPage" />
+    <slot name="data" :pageNumber="pageNumber" 
+                      :itemsPerPage="perPage"
+                      :paginatedItems="paginatedItems" />
   </div>
 </template>
 
@@ -42,6 +44,10 @@
     computed: {
       numberPages(){
         return Math.ceil(this.totalItems / this.perPage)
+      },
+      paginatedItems(){
+        let end = this.perPage * this.pageNumber
+        return this.items.slice(end - this.perPage,end);
       }
     },
     methods:  {
@@ -71,6 +77,10 @@
       totalItems: {
         type: Number,
         required: true
+      },
+      items: {
+        type: Array,
+        default: () => { return [] }
       }
     }
   }
