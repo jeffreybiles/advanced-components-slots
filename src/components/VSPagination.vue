@@ -3,18 +3,18 @@
     <div class="pagination-row">
       <button class="pagination-button"
               :disabled="pageNumber <= 1"
-              @click="pageNumber = pageNumber - 1">
+              @click="changePageNumber(pageNumber - 1)">
         &lt;- 
       </button>
       <span v-for="(item, index) in new Array(numberPages)" :key="index">
         <button :class="['pagination-button', pageNumber == index + 1 ? 'active' : '']"
-                @click="pageNumber = index + 1">
+                @click="changePageNumber(index + 1)">
           {{index + 1}}
         </button>
       </span>
       <button class="pagination-button"
               :disabled="pageNumber >= numberPages"
-              @click="pageNumber = pageNumber + 1">
+              @click="changePageNumber(pageNumber + 1)">
         -&gt;
       </button>
     </div>
@@ -27,13 +27,21 @@
   export default {
     data(){
       return {
-        pageNumber: 1,
+        pageNumber: Number(this.$route.query.pageNumber) || 1,
         perPage: 20
       }
     },
     computed: {
       numberPages(){
         return Math.ceil(this.totalItems / this.perPage)
+      }
+    },
+    methods:  {
+      changePageNumber(newPageNumber) {
+        this.pageNumber = newPageNumber;
+        this.$router.push({path: this.$route.path, query: {
+          pageNumber: newPageNumber
+        }})
       }
     },
     props: {
