@@ -5,7 +5,7 @@
               @click="pageNumber = pageNumber - 1">
         &lt;- 
       </button>
-      <span v-for="(item, index) in new Array(10)" :key="index">
+      <span v-for="(item, index) in new Array(numberPages)" :key="index">
         <button class="pagination-button"
                 @click="pageNumber = index + 1">
           {{index + 1}}
@@ -25,7 +25,19 @@
   export default {
     data(){
       return {
-        pageNumber: 1
+        pageNumber: 1,
+        perPage: 20
+      }
+    },
+    computed: {
+      numberPages(){
+        return Math.ceil(this.totalItems / this.perPage)
+      }
+    },
+    props: {
+      totalItems: {
+        type: Number,
+        required: true
       }
     }
   }
