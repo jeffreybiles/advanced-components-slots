@@ -5,6 +5,8 @@ import Part2 from '@/views/Part2.vue';
 import Part2_1 from '@/views/Part2-1.vue';
 import Part3 from '@/views/Part3.vue';
 import Part3_1 from '@/views/Part3-1.vue';
+import Pagination from '@/views/Pagination.vue';
+import Pagination_1 from '@/views/Pagination-1.vue';
 
 Vue.use(VueRouter)
 
@@ -33,6 +35,16 @@ const routes = [
     path: '/part-3-1',
     name: 'part-3-1',
     component: Part3_1
+  },
+  {
+    path: '/pagination',
+    name: 'pagination',
+    component: Pagination
+  },
+  {
+    path: '/pagination-1',
+    name: 'pagination-1',
+    component: Pagination_1
   },
 ]
 

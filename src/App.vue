@@ -5,7 +5,9 @@
       <router-link to="/part-2">Part II</router-link> |
       <router-link to="/part-2-1">Part II+</router-link> |
       <router-link to="/part-3">Part III</router-link> |
-      <router-link to="/part-3-1">Part III+</router-link>
+      <router-link to="/part-3-1">Part III+</router-link> |
+      <router-link to="/pagination">Pagination</router-link> |
+      <router-link to="/pagination-1">Pagination+</router-link>
     </div>
     <router-view/>
   </div>
