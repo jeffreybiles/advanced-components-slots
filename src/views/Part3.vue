@@ -7,7 +7,6 @@
 
     <DataLoader :endpoint="`https://api.github.com/orgs/${orgName}`" :authToken="authToken">
       <template #loaded="{data}">
-        <VSPagination :total="data.public_repos">
           <template #pagination-button="{goToPage, target, text, disabled, active}">
             <VSButton @click="goToPage(target)" :disabled="disabled" :class="[active ? 'active' : '']">{{text}}</VSButton>
           </template>
@@ -17,6 +16,7 @@
               {{perPage}}
             </VSButton>
           </template>
+        <VSPagination :totalItems="data.public_repos">
           <template #default="{pageNumber, perPage}">
             <DataLoader :endpoint="`https://api.github.com/orgs/${orgName}/repos?page=${pageNumber}&per_page=${perPage}`" 
                         :authToken="authToken">
