@@ -1,6 +1,14 @@
 <template>
   <div>
     <div class="pagination-row">
+      <span v-for="perPageOption in [5, 10, 25, 50]" :key="perPageOption">
+        <button :class="['per-page-button', perPageOption == perPage ? 'active' : '']"
+                @click="changePerPage(perPageOption)">
+          {{perPageOption}}
+        </button>
+      </span>
+    </div>
+    <div class="pagination-row">
       <button class="pagination-button"
               :disabled="pageNumber <= 1"
               @click="changePageNumber(pageNumber - 1)">
@@ -19,7 +27,7 @@
       </button>
     </div>
 
-    <slot name="data" :pageNumber="pageNumber" />
+    <slot name="data" :pageNumber="pageNumber" :itemsPerPage="perPage" />
   </div>
 </template>
 
@@ -28,7 +36,7 @@
     data(){
       return {
         pageNumber: Number(this.$route.query.pageNumber) || 1,
-        perPage: 20
+        perPage: this.$route.query.perPage || 20
       }
     },
     computed: {
@@ -43,6 +51,20 @@
           ...this.$route.query,
           pageNumber: newPageNumber,
         }})
+      },
+      changePerPage(newPerPage) {
+        this.perPage = newPerPage;
+
+        let newNumberPages = Math.ceil(this.totalItems / newPerPage)
+        if(newNumberPages <= this.pageNumber) {
+          this.pageNumber = newNumberPages
+        }
+
+        this.$router.push({path: this.$route.path, query: {
+          ...this.$route.query,
+          perPage: newPerPage,
+          pageNumber: this.pageNumber
+        }})
       }
     },
     props: {
@@ -55,7 +77,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .pagination-button {
+  .pagination-button, .per-page-button {
     padding: 8px;
     margin: 2px;
     border-radius: 3px;

@@ -7,9 +7,9 @@
     <DataLoader :endpoint="`https://api.github.com/orgs/${orgName}`" :authToken="authToken">
       <template #loaded="{data}">
         <VSPagination :totalItems="data.public_repos">
-          <template #data="{pageNumber}">
+          <template #data="{pageNumber, itemsPerPage}">
             <DataLoader :endpoint="`https://api.github.com/orgs/${orgName}/repos?page=${pageNumber}
-            &per_page=20`" :authToken="authToken">
+            &per_page=${itemsPerPage}`" :authToken="authToken">
               <template #loading-message>
                 <h3>Loading your github projects</h3>
               </template>
