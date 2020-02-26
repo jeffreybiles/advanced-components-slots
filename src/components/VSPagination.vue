@@ -14,50 +14,47 @@
       </span>
     </div>
     <div class="pagination-row">
-      <slot name="pagination-button" 
-            :isDisabled="pageNumber <= 1"
-            :text="'&lt;-'"
-            :target="pageNumber - 1"
-            :changePageNumber="changePageNumber">
-        <button class="pagination-button"
-                :disabled="pageNumber <= 1"
-                @click="changePageNumber(pageNumber - 1)">
-          &lt;- 
-        </button>
-      </slot>
-      <span v-for="(item, index) in new Array(numberPages)" :key="index">
-        <slot name="pagination-button" 
-              :isActive="pageNumber == index + 1"
-              :text="index + 1"
-              :target="index + 1"
-              :changePageNumber="changePageNumber">
-          <button :class="['pagination-button', pageNumber == index + 1 ? 'active' : '']"
-                  @click="changePageNumber(index + 1)">
-            {{index + 1}}
-          </button>
-        </slot>
-      </span>
-      <slot name="pagination-button" 
-            :isDisabled="pageNumber >= numberPages"
-            :text="'-&gt;'"
-            :target="pageNumber + 1"
-            :changePageNumber="changePageNumber">
-        <button class="pagination-button"
-                :disabled="pageNumber >= numberPages"
-                @click="changePageNumber(pageNumber + 1)">
-          -&gt;
-        </button>
-      </slot>
+      <VSPaginationBar :changePageNumber="changePageNumber"
+                       :pageNumber="pageNumber"
+                       :numberPages="numberPages">
+        <template #pagination-button="{isActive, text, changePageNumber, target, isDisabled}">
+          <slot name="pagination-button"
+                :isActive="isActive"
+                :text="text"
+                :changePageNumber="changePageNumber"
+                :target="target"
+                :isDisabled="isDisabled" />
+        </template>
+      </VSPaginationBar>
     </div>
 
     <slot name="data" :pageNumber="pageNumber" 
                       :itemsPerPage="perPage"
                       :paginatedItems="paginatedItems" />
+
+    <div class="pagination-row">
+      <VSPaginationBar :changePageNumber="changePageNumber"
+                        :pageNumber="pageNumber"
+                        :numberPages="numberPages">
+        <template #pagination-button="{isActive, text, changePageNumber, target, isDisabled}">
+          <slot name="pagination-button"
+                :isActive="isActive"
+                :text="text"
+                :changePageNumber="changePageNumber"
+                :target="target"
+                :isDisabled="isDisabled" />
+        </template>
+      </VSPaginationBar>
+    </div>
   </div>
 </template>
 
 <script>
+  import VSPaginationBar from '@/components/VSPaginationBar.vue';
   export default {
+    components: {
+      VSPaginationBar
+    },
     data(){
       return {
         pageNumber: Number(this.$route.query.pageNumber) || 1,
