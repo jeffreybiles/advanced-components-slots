@@ -19,11 +19,12 @@
 
     <slot name="pagination-bar">
       <VSPaginationBar :pageNumber="pageNumber" :goToPage="goToPage" :totalPages="totalPages">
-        <template #pagination-button="{goToPage, target, text, disabled}">
+        <template #pagination-button="{goToPage, target, text, disabled, active}">
           <slot name="pagination-button" 
                 :goToPage="goToPage" 
                 :target="target" 
-                :text="text" 
+                :text="text"
+                :active="active"
                 :disabled="disabled" />
         </template>
       </VSPaginationBar>
@@ -33,11 +34,12 @@
 
     <slot name="pagination-bar">
       <VSPaginationBar :pageNumber="pageNumber" :goToPage="goToPage" :totalPages="totalPages">
-        <template #pagination-button="{goToPage, target, text, disabled}">
+        <template #pagination-button="{goToPage, target, text, disabled, active}">
           <slot name="pagination-button" 
                 :goToPage="goToPage" 
                 :target="target"
-                :text="text" 
+                :text="text"
+                :active="active"
                 :disabled="disabled" />
         </template>
       </VSPaginationBar>
