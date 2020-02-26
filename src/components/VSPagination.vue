@@ -16,54 +16,37 @@
         </span>
       </div>
     </slot>
-    <slot name="pagination-bar">
-      <div class="pagination-bar" :pageNumber="pageNumber" :goToPage="goToPage">
-        <!-- Left arrow button -->
-        <slot name="pagination-button" 
-              :goToPage="goToPage" 
-              :target="pageNumber - 1" 
-              text="&lt;-" 
-              :disabled="pageNumber <= 1">
-          <button :disabled="pageNumber <= 1" 
-                  class="pagination-button"
-                  @click="goToPage(pageNumber - 1)"> 
-            &lt;- 
-          </button>
-        </slot>
 
-        <!-- Numbered pagination buttons -->
-        <span v-for="(item, index) in new Array(totalPages)" :key="index">
+    <slot name="pagination-bar">
+      <VSPaginationBar :pageNumber="pageNumber" :goToPage="goToPage" :totalPages="totalPages">
+        <template #pagination-button="{goToPage, target, text, disabled}">
           <slot name="pagination-button" 
                 :goToPage="goToPage" 
-                :target="index + 1"
-                :active="index + 1 == pageNumber"
-                :text="index + 1">
-            <button @click="goToPage(index + 1)" 
-                    :class="['pagination-button', index + 1 == pageNumber ? 'active' : '']">
-              {{index + 1}}
-            </button>
-          </slot>
-        </span>
-
-        <!-- Right arrow button -->
-        <slot name="pagination-button" 
-              :goToPage="goToPage" 
-              :target="pageNumber + 1" 
-              text="-&gt;"
-              :disabled="pageNumber >= totalPages">
-          <button :disabled="pageNumber >= totalPages"
-                  class="pagination-button"
-                  @click="goToPage(pageNumber + 1)">
-            -&gt;
-          </button>
-        </slot>
-      </div>
+                :target="target" 
+                :text="text" 
+                :disabled="disabled" />
+        </template>
+      </VSPaginationBar>
     </slot>
+    
     <slot :perPage="perPage" :pageNumber="pageNumber" :paginatedItems="paginatedItems" />
+
+    <slot name="pagination-bar">
+      <VSPaginationBar :pageNumber="pageNumber" :goToPage="goToPage" :totalPages="totalPages">
+        <template #pagination-button="{goToPage, target, text, disabled}">
+          <slot name="pagination-button" 
+                :goToPage="goToPage" 
+                :target="target"
+                :text="text" 
+                :disabled="disabled" />
+        </template>
+      </VSPaginationBar>
+    </slot>
   </div>
 </template>
 
 <script>
+  import VSPaginationBar from '@/components/VSPaginationBar.vue';
   export default {
     data(){
       return {
@@ -71,6 +54,9 @@
         pageNumber: this.$route.query.pageNumber || 1,
         itemsPerPageOptions: [5, 10, 25, 50]
       }
+    },
+    components: {
+      VSPaginationBar
     },
     methods: {
       goToPage(pageNumber) {
@@ -125,7 +111,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .pagination-button, .pagination-count-button {
+  ::v-deep .pagination-button, .pagination-count-button {
     padding: 8px;
     margin: 2px;
     border-radius: 3px;
