@@ -7,6 +7,11 @@
     <DataLoader :endpoint="`https://api.github.com/orgs/${orgName}`" :authToken="authToken">
       <template #loaded="{data}">
         <VSPagination :totalItems="data.public_repos">
+          <template #per-page-button="{perPageOption, isActive, changePerPage}">
+            <VSButton :class="[isActive ? 'active' : '']" @click="changePerPage(perPageOption)">
+              {{perPageOption}}
+            </VSButton>
+          </template>
           <template #data="{pageNumber, itemsPerPage}">
             <DataLoader :endpoint="`https://api.github.com/orgs/${orgName}/repos?page=${pageNumber}
             &per_page=${itemsPerPage}`" :authToken="authToken">
@@ -54,13 +59,15 @@
   import VSTable from '@/components/VSTable.vue';
   import DataLoader from '@/components/DataLoader.vue';
   import VSPagination from '@/components/VSPagination.vue';
+  import VSButton from '@/components/VSButton.vue';
   import _ from 'lodash';
 
   export default {
     components: {
       VSTable,
       DataLoader,
-      VSPagination
+      VSPagination,
+      VSButton
     },
     data(){
       return {

@@ -2,10 +2,15 @@
   <div>
     <div class="pagination-row">
       <span v-for="perPageOption in [5, 10, 25, 50]" :key="perPageOption">
-        <button :class="['per-page-button', perPageOption == perPage ? 'active' : '']"
-                @click="changePerPage(perPageOption)">
-          {{perPageOption}}
-        </button>
+        <slot name="per-page-button" 
+              :perPageOption="perPageOption"
+              :isActive="perPage == perPageOption"
+              :changePerPage="changePerPage">
+          <button :class="['per-page-button', perPageOption == perPage ? 'active' : '']"
+                  @click="changePerPage(perPageOption)">
+            {{perPageOption}}
+          </button>
+        </slot>
       </span>
     </div>
     <div class="pagination-row">
