@@ -26,5 +26,13 @@
       left: -3px;
       top: -3px;
     }
+
+    &:disabled {
+      background-color: #ccc;
+      box-shadow: 2px 2px #888;
+      top: 0;
+      left: 0;
+      cursor: default;
+    }
   }
 </style>

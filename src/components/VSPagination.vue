@@ -14,22 +14,40 @@
       </span>
     </div>
     <div class="pagination-row">
-      <button class="pagination-button"
-              :disabled="pageNumber <= 1"
-              @click="changePageNumber(pageNumber - 1)">
-        &lt;- 
-      </button>
-      <span v-for="(item, index) in new Array(numberPages)" :key="index">
-        <button :class="['pagination-button', pageNumber == index + 1 ? 'active' : '']"
-                @click="changePageNumber(index + 1)">
-          {{index + 1}}
+      <slot name="pagination-button" 
+            :isDisabled="pageNumber <= 1"
+            :text="'&lt;-'"
+            :target="pageNumber - 1"
+            :changePageNumber="changePageNumber">
+        <button class="pagination-button"
+                :disabled="pageNumber <= 1"
+                @click="changePageNumber(pageNumber - 1)">
+          &lt;- 
         </button>
+      </slot>
+      <span v-for="(item, index) in new Array(numberPages)" :key="index">
+        <slot name="pagination-button" 
+              :isActive="pageNumber == index + 1"
+              :text="index + 1"
+              :target="index + 1"
+              :changePageNumber="changePageNumber">
+          <button :class="['pagination-button', pageNumber == index + 1 ? 'active' : '']"
+                  @click="changePageNumber(index + 1)">
+            {{index + 1}}
+          </button>
+        </slot>
       </span>
-      <button class="pagination-button"
-              :disabled="pageNumber >= numberPages"
-              @click="changePageNumber(pageNumber + 1)">
-        -&gt;
-      </button>
+      <slot name="pagination-button" 
+            :isDisabled="pageNumber >= numberPages"
+            :text="'-&gt;'"
+            :target="pageNumber + 1"
+            :changePageNumber="changePageNumber">
+        <button class="pagination-button"
+                :disabled="pageNumber >= numberPages"
+                @click="changePageNumber(pageNumber + 1)">
+          -&gt;
+        </button>
+      </slot>
     </div>
 
     <slot name="data" :pageNumber="pageNumber" 
@@ -57,6 +75,13 @@
     },
     methods:  {
       changePageNumber(newPageNumber) {
+        if(newPageNumber <= 0) {
+          return null;
+        }
+        if(newPageNumber > this.numberPages) {
+          return null;
+        }
+
         this.pageNumber = newPageNumber;
         this.$router.push({path: this.$route.path, query: {
           ...this.$route.query,
