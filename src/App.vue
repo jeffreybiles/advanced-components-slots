@@ -7,7 +7,9 @@
       <router-link to="/part-3">Part III</router-link> |
       <router-link to="/part-3-1">Part III+</router-link> |
       <router-link to="/pagination">Pagination</router-link> |
-      <router-link to="/pagination-1">Pagination+</router-link>
+      <router-link to="/pagination-1">Pagination+</router-link> |
+      <router-link to="/pagination-slots">Pagination Slots</router-link> |
+      <router-link to="/pagination-slots-1">Pagination Slots+</router-link>
     </div>
     <router-view/>
   </div>

@@ -7,6 +7,8 @@ import Part3 from '@/views/Part3.vue';
 import Part3_1 from '@/views/Part3-1.vue';
 import Pagination from '@/views/Pagination.vue';
 import Pagination_1 from '@/views/Pagination-1.vue';
+import PaginationSlots from '@/views/Pagination-Slots.vue';
+import PaginationSlots_1 from '@/views/Pagination-Slots-1.vue';
 
 Vue.use(VueRouter)
 
@@ -45,6 +47,16 @@ const routes = [
     path: '/pagination-1',
     name: 'pagination-1',
     component: Pagination_1
+  },
+  {
+    path: '/pagination-slots',
+    name: 'pagination-slots',
+    component: PaginationSlots
+  },
+  {
+    path: '/pagination-slots-1',
+    name: 'pagination-slots-1',
+    component: PaginationSlots_1
   },
 ]
 
