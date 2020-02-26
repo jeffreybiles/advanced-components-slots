@@ -12,10 +12,11 @@
             <VSButton @click="goToPage(target)" :disabled="disabled" :class="[active ? 'active' : '']">{{text}}</VSButton>
           </template>
           <template #pagination-per-page-button="{isActive, perPage, changePerPage}">
-            <VSButton @click="changePerPage(perPage)"
-                      :class="[isActive ? 'active' : '']">
+            <button @click="changePerPage(perPage)"
+                    :class="[isActive ? 'active' : '']"
+                    class="green-button">
               {{perPage}}
-            </VSButton>
+            </button>
           </template>
           <template #default="{pageNumber, perPage}">
             <DataLoader :endpoint="`https://api.github.com/orgs/${orgName}/repos?page=${pageNumber}&per_page=${perPage}`" 
@@ -107,5 +108,16 @@
 </script>
 
 <style lang="scss" scoped>
+  .green-button {
+    background-color: #8B8;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 1px;
+    font-size: 1em;
 
+    &.active {
+      background-color: #050;
+      color: white;
+    }
+  }
 </style>
