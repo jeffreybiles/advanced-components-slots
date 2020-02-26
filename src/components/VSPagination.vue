@@ -38,7 +38,7 @@
     data(){
       return {
         pageNumber: Number(this.$route.query.pageNumber) || 1,
-        perPage: this.$route.query.perPage || 20
+        perPage: this.$route.query.perPage || 10
       }
     },
     computed: {
