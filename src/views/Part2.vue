@@ -56,7 +56,9 @@
     methods: {
       async findData(){
         let url = `https://api.github.com/orgs/${this.username}/repos`;
-        let results = await this.axios.get(url);
+        let results = await this.axios.get(url, {
+          'Authorization': `token ${process.env.VUE_APP_GITHUB_AUTH}`
+        });
         this.projects = results.data;
       },
       sumBy(array, property){
