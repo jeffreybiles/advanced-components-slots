@@ -21,6 +21,10 @@
         Here Be Dragons
         <font-awesome-icon icon="dragon" />
       </template>
+      <template #head.watchers>
+        Watchers
+        <font-awesome-icon icon="eye" />
+      </template>
 
       <template #foot.stargazers="{items}">{{sumBy(items, 'stargazers_count')}}</template>
       <template #foot.openIssues="{items}">{{sumBy(items, 'open_issues')}}</template>
@@ -46,6 +50,7 @@
           {id: 'language', propertyName: 'language', name: "Language"},
           {id: 'openIssues', propertyName: 'open_issues', name: "Open Issues"},
           {id: 'forks', propertyName: 'forks', name: '# of forks'},
+          {id: 'watchers', propertyName: 'watchers', name: 'Watchers'},
           {id: 'actions', name: "Actions"}
         ]
       }
