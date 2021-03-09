@@ -34,11 +34,53 @@
   It will also have a #head.${column.id} and #foot.${column.id}
   In addition, you #item, #head, and #foot to replace the template of the entire section
 
-  You can use as many slots as you like to customize a table's display
-  Be aware that using #item, #head, or #foot will override any customization on the individual columns in that section
+  You can use as many slots as you like to customize a table's display.
+  For following extended array of columns:
+  columns: [
+    {id: 'name', propertyName: 'name', name: "Name"},
+    {id: 'stargazers', propertyName: 'stargazers_count', name: "Stargazers Count"},
+    {id: 'language', propertyName: 'language', name: "Language"},
+    {id: 'openIssues', propertyName: 'open_issues', name: "Open Issues"},
+    {id: 'forks', propertyName: 'forks', name: '# of forks'},
+    {id: 'watchers', propertyName: 'watchers', name: 'Watchers'},
+    {id: 'actions', name: "Actions"}
+  ]
+
+  You could use this in your template:
+  <VSTable :items="projects"
+            :columns="columns">
+            
+    <template #item.stargazers="{item}">
+      {{Humanize.intComma(item.stargazers_count)}} 
+      <font-awesome-icon icon="star" />
+    </template>
+    <template #item.openIssues="{item}">
+      {{item.open_issues}} issues
+    </template>
+
+    <template #head.stargazers>
+      <font-awesome-icon icon="star" />
+      <font-awesome-icon icon="star" />
+      <font-awesome-icon icon="star" />
+    </template>
+    <template #head.openIssues>
+      Here Be Dragons
+      <font-awesome-icon icon="dragon" />
+    </template>
+    <template #head.watchers>
+      Watchers
+      <font-awesome-icon icon="eye" />
+    </template>
+
+    <template #foot.stargazers="{items}">{{sumBy(items, 'stargazers_count')}}</template>
+    <template #foot.openIssues="{items}">{{sumBy(items, 'open_issues')}}</template>
+  </VSTable>
 
   #item.${column.id} and #item slots will have an item object, a highlight function, and a remove function available
   #head.${column.id}, #head, #foot.${column.id}, and #foot slots will have the array of items available, so that calculations can be done
+  Be aware that using #item, #head, or #foot will override any customization on the individual columns in that section
+
+  There is a special item column slot, #item.actions, which will give you highlight and remove buttons if you have a column with an id of `actions`
 */
 
 <template>
