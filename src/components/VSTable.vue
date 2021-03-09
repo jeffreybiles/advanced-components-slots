@@ -1,10 +1,49 @@
+/* Usage
+  VSTable component requires two props
+  * Columns, an array of objects
+  * Items, an array of objects
+
+  Examples:
+  columns: [
+    {id: 'name', propertyName: 'name', name: "Name"},
+    {id: 'stargazers', propertyName: 'stargazers_count', name: "Stargazers Count"},
+  ],
+  items: [
+    {id: '9a1b772e', stargazers_count: 7, name: 'Small Side Project'},
+    {id: 'ac5f10f4', stargazers_count: 180000, name: 'VueJS'}
+  ]
+  The `propertyName` of each column should contain the key of a property in the items you want to display.  
+  By default, the value attached to that key will be displayed within the cells of that column.
+
+  However, you can also use slots to replace what's displayed in any area of the table.
+
+  For example, the following code will replace the default cells in the `difficulty` column
+  This will color-code the text and slightly modify the wording ("Easy" instead of "beginner", etc.)
+  
+  <VSTable :columns="columns" :items="courses">
+    <template #item.difficulty="{item}">
+      <span v-if="item.difficulty == 'beginner'" style="color: green;">Easy</span>
+      <span v-if="item.difficulty == 'intermediate'" style="color: orange;">Intermediate</span>
+      <span v-if="item.difficulty == 'advanced'" style="color: red;">Hard</span>
+    </template>
+  </VSTable>
+
+  The slot name #item.difficulty is auto-generated from the columns array, because there is a column with id of difficulty.
+  Any id value in the columns array will have an #item.${column.id} slot generated.
+  It will also have a #head.${column.id} and #foot.${column.id}
+  In addition, you #item, #head, and #foot to replace the template of the entire section
+
+  #item.${column.id} and #item slots will have an item object, a highlight function, and a remove function available
+  #head.${column.id}, #head, #foot.${column.id}, and #foot slots will have the array of items available, so that calculations can be done
+*/
+
 <template>
   <table v-if="items">
     <thead>
-      <slot name="head">
+      <slot name="head" :items="items">
         <th v-for="column in columns"
             :key="column.id">
-          <slot :name="`head.${column.id}`">
+          <slot :name="`head.${column.id}`" :items="items">
             {{column.name}}
           </slot>
         </th>
