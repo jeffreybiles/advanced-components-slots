@@ -33,6 +33,9 @@
   It will also have a #head.${column.id} and #foot.${column.id}
   In addition, you #item, #head, and #foot to replace the template of the entire section
 
+  You can use as many slots as you like to customize a table's display
+  Be aware that using #item, #head, or #foot will override any customization on the individual columns in that section
+
   #item.${column.id} and #item slots will have an item object, a highlight function, and a remove function available
   #head.${column.id}, #head, #foot.${column.id}, and #foot slots will have the array of items available, so that calculations can be done
 */
