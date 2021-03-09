@@ -12,23 +12,24 @@
     {id: '9a1b772e', stargazers_count: 7, name: 'Small Side Project'},
     {id: 'ac5f10f4', stargazers_count: 180000, name: 'VueJS'}
   ]
-  The `propertyName` of each column should contain the key of a property in the items you want to display.  
-  By default, the value attached to that key will be displayed within the cells of that column.
+  The `propertyName` of each column should contain the key of a property in the items you want to display.
+  In this case, the columns have the `name`  and `stargazers_count` propertyNames, and the items have those properties.
+  By default, the cell will display {{item[column.propertyName]}}.
 
   However, you can also use slots to replace what's displayed in any area of the table.
 
-  For example, the following code will replace the default cells in the `difficulty` column
-  This will color-code the text and slightly modify the wording ("Easy" instead of "beginner", etc.)
+  For example, the following code will replace the default cells in the `stargazers` column.
+  The slot named #item.stargazers is auto-generated from the columns array, because there is a column with id of stargazers.
+  This will add commas to the count, then put a star icon at the end.
   
-  <VSTable :columns="columns" :items="courses">
-    <template #item.difficulty="{item}">
-      <span v-if="item.difficulty == 'beginner'" style="color: green;">Easy</span>
-      <span v-if="item.difficulty == 'intermediate'" style="color: orange;">Intermediate</span>
-      <span v-if="item.difficulty == 'advanced'" style="color: red;">Hard</span>
+  <VSTable :items="projects"
+            :columns="columns">
+    <template #item.stargazers="{item}">
+      {{Humanize.intComma(item.stargazers_count)}} 
+      <font-awesome-icon icon="star" />
     </template>
   </VSTable>
 
-  The slot name #item.difficulty is auto-generated from the columns array, because there is a column with id of difficulty.
   Any id value in the columns array will have an #item.${column.id} slot generated.
   It will also have a #head.${column.id} and #foot.${column.id}
   In addition, you #item, #head, and #foot to replace the template of the entire section
