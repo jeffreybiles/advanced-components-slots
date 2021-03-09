@@ -19,8 +19,7 @@
   However, you can also use slots to replace what's displayed in any area of the table.
 
   For example, the following code will replace the default cells in the `stargazers` column.
-  The slot named #item.stargazers is auto-generated from the columns array, because there is a column with id of stargazers.
-  This will add commas to the count, then put a star icon at the end.
+  This particular slot usage will add commas to the count, then put a star icon at the end.
   
   <VSTable :items="projects"
             :columns="columns">
@@ -30,6 +29,7 @@
     </template>
   </VSTable>
 
+  The slot named #item.stargazers is auto-generated from the columns array, because there is a column with id of stargazers.
   Any id value in the columns array will have an #item.${column.id} slot generated.
   It will also have a #head.${column.id} and #foot.${column.id}
   In addition, you #item, #head, and #foot to replace the template of the entire section
